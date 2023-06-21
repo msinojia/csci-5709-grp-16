@@ -1,6 +1,7 @@
 import React from "react";
-import Form from "./Form";
+import LandingPage from "./LandingPage";
 import ContactUs from "./ContactUs";
+import FAQ from "./FAQ";
 import Header from "./Header";
 import { ThemeProvider } from "@mui/material";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -13,8 +14,9 @@ function App() {
         <Header />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Form />} />
+          <Route path="/" element={<LandingPage />} />
             <Route path="/contact" element={<ContactUs />} />
+            <Route path="/FAQ" element={<FAQ />} />
           </Routes>
         </BrowserRouter>
       </div>
