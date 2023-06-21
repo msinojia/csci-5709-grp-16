@@ -1,0 +1,10 @@
+.form-window {
+    margin: 20px auto;
+    max-width: 600px;
+    width: 90%;
+  }
+  
+.form-window label {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
