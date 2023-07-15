@@ -1,11 +1,12 @@
 import React from "react";
-import LandingPage from "./LandingPage";
-import ContactUs from "./ContactUs";
-import FAQ from "./FAQ";
-import Header from "./Header";
+import LandingPage from "./components/LandingPage";
+import ContactUs from "./components/ContactUs";
+import FAQ from "./components/FAQ";
+import Header from "./components/Header";
+import PostForm from "./components/CreatePost/PostForm";
 import { ThemeProvider } from "@mui/material";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import theme from "./theme";
+import theme from "./components/theme";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/FAQ" element={<FAQ />} />
+            <Route path="/post" element={<PostForm />} />
           </Routes>
         </BrowserRouter>
       </div>

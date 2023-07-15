@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Paper, Box, Typography } from '@mui/material';
-import './FAQ.css';
+import '../styles/FAQ.css';
 
 const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -45,7 +45,7 @@ const FAQ = () => {
   return (
     <Box
       sx={{
-        backgroundImage: `url(${process.env.PUBLIC_URL}/boat_bg.jpg)`,
+        backgroundImage: `url(${process.env.PUBLIC_URL}/assets/background_image/boat_bg.jpg)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         minHeight: '100vh',
