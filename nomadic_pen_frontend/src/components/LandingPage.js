@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import slide1 from './Images/slide1.jpg';
-import slide2 from './Images/slide2.jpg';
-import slide3 from './Images/slide3.jpg';
+import slide1 from '../Images/slide1.jpg';
+import slide2 from '../Images/slide2.jpg';
+import slide3 from '../Images/slide3.jpg';
 
 const useStyles = makeStyles((theme) => ({
   root: {

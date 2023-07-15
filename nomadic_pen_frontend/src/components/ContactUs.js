@@ -64,7 +64,7 @@ const ContactUs = () => {
     return (
         <Box
             sx={{
-                backgroundImage: `url(${process.env.PUBLIC_URL}/boat_bg.jpg)`,
+                backgroundImage: `url(${process.env.PUBLIC_URL}/assets/background_image/boat_bg.jpg)`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 minHeight: "100vh",
