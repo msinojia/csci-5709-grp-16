@@ -127,10 +127,10 @@ const PostForm = () => {
     let { formValid, newErrors } = isFormValid();
     if (formValid) {
       // Handle form submission and post creation
-      console.log('Title:', title);
-      console.log('Image:', selectedFile);
-      console.log('Tags:', tags);
-      console.log('Content:\n', editorHtmlValue);
+      console.log("Title:", title);
+      console.log("Image:", selectedFile);
+      console.log("Tags:", tags);
+      console.log("Content:\n", editorHtmlValue);
       console.log("Form submitted!");
     } else {
       setErrors(newErrors);
@@ -183,7 +183,6 @@ const PostForm = () => {
             </Typography>
             <FileUploader
               selectedFile={selectedFile}
-              setSelectedFile={setSelectedFile}
               onFileChange={handleFileChange}
             />
             {errors.featuredImage && (

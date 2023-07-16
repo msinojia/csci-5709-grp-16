@@ -2,20 +2,32 @@ import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "@mui/material";
 
-const FileUploader = ({ selectedFile, setSelectedFile, onFileChange }) => {
+const FileUploader = ({ onFileChange, selectedFile }) => {
   const [fileError, setFileError] = useState("");
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
-      "image/*": [],
+      "image/jpeg": [],
+      "image/png": [],
     },
-    onDrop: (acceptedFiles) => {
+    onDropAccepted: (acceptedFiles) => {
       const file = acceptedFiles[0];
-      setSelectedFile(file);
-      setFileError("");
-      onFileChange(file);
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const base64String = reader.result;
+        setFileError("");
+        onFileChange(base64String);
+      };
+
+      reader.onerror = () => {
+        setFileError("Error occurred while reading the file.");
+      };
+
+      reader.readAsDataURL(file);
     },
     onDropRejected: () => {
+      onFileChange(null);
       setFileError("Invalid file type. Please select an image.");
     },
   });
@@ -35,15 +47,16 @@ const FileUploader = ({ selectedFile, setSelectedFile, onFileChange }) => {
         <Button variant="contained">Browse</Button>
         {selectedFile && (
           <p>
-            Selected File: {selectedFile.name} ({selectedFile.size} bytes)
+            Selected File: {selectedFile.substring(0, 20)}... (
+            {selectedFile.length} characters)
           </p>
         )}
         {fileError && <p style={{ color: "red" }}>{fileError}</p>}
       </div>
-      {selectedFile && selectedFile.type.startsWith("image/") && (
+      {selectedFile && selectedFile.startsWith("data:image/") && (
         <div style={{ textAlign: "center" }}>
           <img
-            src={URL.createObjectURL(selectedFile)}
+            src={selectedFile}
             alt="Selected"
             style={{ maxWidth: "100%", maxHeight: "200px" }}
           />
