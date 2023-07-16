@@ -7,9 +7,9 @@ const FileUploader = ({ onFileChange, selectedFile }) => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
-      "image/jpeg": [],
-      "image/png": [],
+      "image/*": [],
     },
+    disabled: !!selectedFile, // Disable dropzone when a file is already selected
     onDropAccepted: (acceptedFiles) => {
       const file = acceptedFiles[0];
       const reader = new FileReader();
@@ -39,29 +39,42 @@ const FileUploader = ({ onFileChange, selectedFile }) => {
         style={{ marginBottom: "1rem", textAlign: "center" }}
       >
         <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop the image here...</p>
-        ) : (
-          <p>Drag and drop an image here or click to browse</p>
+        {!selectedFile && (
+          <>
+            {isDragActive ? (
+              <p>Drop the image here...</p>
+            ) : (
+              <p>Drag and drop an image here or click to browse</p>
+            )}
+            <Button variant="contained">Browse</Button>
+          </>
         )}
-        <Button variant="contained">Browse</Button>
-        {selectedFile && (
-          <p>
-            Selected File: {selectedFile.substring(0, 20)}... (
-            {selectedFile.length} characters)
-          </p>
-        )}
-        {fileError && <p style={{ color: "red" }}>{fileError}</p>}
       </div>
       {selectedFile && selectedFile.startsWith("data:image/") && (
-        <div style={{ textAlign: "center" }}>
-          <img
-            src={selectedFile}
-            alt="Selected"
-            style={{ maxWidth: "100%", maxHeight: "200px" }}
-          />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ textAlign: "center" }}>
+            <img
+              src={selectedFile}
+              alt="Selected"
+              style={{ maxWidth: "100%", maxHeight: "200px" }}
+            />
+          </div>
+          <Button
+            variant="contained"
+            style={{ marginTop: "1rem" }}
+            onClick={() => onFileChange(null)}
+          >
+            Remove
+          </Button>
         </div>
       )}
+      {fileError && <p style={{ color: "red" }}>{fileError}</p>}
     </div>
   );
 };
