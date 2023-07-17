@@ -16,7 +16,7 @@ import FileUploader from "./FileUploader";
 import Editor from "./Editor";
 import ScheduleForm from "./ScheduleForm";
 
-import "../../styles/FormWindow.css";
+import styles from "../../styles/FormWindow.module.css";
 
 const initialContent = "";
 
@@ -158,7 +158,7 @@ const PostForm = () => {
           boxShadow: "0px 0px 50px rgba(0, 0, 0, 1)",
         }}
       >
-        <form className="form-window" onSubmit={handleSubmit}>
+        <form className={styles["form-window"]} onSubmit={handleSubmit}>
           <Typography variant="h4" gutterBottom>
             Create a New Post
           </Typography>
