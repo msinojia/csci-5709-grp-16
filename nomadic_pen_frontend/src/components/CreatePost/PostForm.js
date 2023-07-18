@@ -11,6 +11,7 @@ import {
   Paper,
 } from "@mui/material";
 import { ArrowDropDown as ArrowDropDownIcon } from "@mui/icons-material";
+import axios from "axios";
 
 import FileUploader from "./FileUploader";
 import Editor from "./Editor";
@@ -122,19 +123,41 @@ const PostForm = () => {
     return { formValid, newErrors };
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     let { formValid, newErrors } = isFormValid();
     if (formValid) {
       // Handle form submission and post creation
-      console.log("Title:", title);
-      console.log("Image:", selectedFile);
-      console.log("Tags:", tags);
-      console.log("Content:\n", editorHtmlValue);
-      console.log("Form submitted!");
+      try {
+        const response = await createPost();
+
+        if (response && response.data) {
+          console.log("Post created:", response.data);
+
+          // Reset the form fields
+          setTitle("");
+          setSelectedFile(null);
+          setEditorHtmlValue("");
+          setTags([]);
+          setTagInput("");
+        } else {
+          console.log("Error creating post:", response);
+        }
+      } catch (error) {
+        console.error("Error creating post:", error);
+      }
     } else {
       setErrors(newErrors);
     }
+  };
+
+  const createPost = async () => {
+    return await axios.post("http://localhost:8000/posts", {
+      title,
+      featuredImage: selectedFile,
+      content: editorHtmlValue,
+      tags,
+    });
   };
 
   return (
