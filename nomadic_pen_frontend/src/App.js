@@ -18,7 +18,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/FAQ" element={<FAQ />} />
-            <Route path="/post" element={<PostForm />} />
+            <Route path="/posts/create" element={<PostForm />} />
           </Routes>
         </BrowserRouter>
       </div>
