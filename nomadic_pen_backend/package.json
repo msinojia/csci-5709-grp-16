@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "nomadic_pen_backend",
   "version": "1.0.0",
   "description": "Backend for The Nomadic Pen (in Node/Express)",
   "main": "app.js",
