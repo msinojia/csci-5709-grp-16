@@ -88,10 +88,14 @@ const PostForm = () => {
     }
   };
 
-  const handleSchedule = (selectedDate) => {
-    // Handle the scheduled post logic here
-    console.log("Scheduled date:", selectedDate);
+  const handleSchedule = async (selectedDate) => {
     setIsScheduleOpen(false);
+    await createPost(selectedDate);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await createPost();
   };
 
   const isFormValid = () => {
@@ -123,13 +127,29 @@ const PostForm = () => {
     return { formValid, newErrors };
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const createPost = async (scheduledDateTime = null) => {
     let { formValid, newErrors } = isFormValid();
     if (formValid) {
       // Handle form submission and post creation
       try {
-        const response = await createPost();
+        let endpoint = "/posts";
+
+        const postData = {
+          title,
+          featuredImage: selectedFile,
+          content: editorHtmlValue,
+          tags,
+        };
+
+        if (scheduledDateTime) {
+          postData.scheduledDateTime = scheduledDateTime;
+          endpoint = "/scheduled-posts";
+        }
+
+        const response = await axios.post(
+          "http://0.0.0.0:8000" + endpoint,
+          postData
+        );
 
         if (response && response.data) {
           console.log("Post created:", response.data);
@@ -149,15 +169,6 @@ const PostForm = () => {
     } else {
       setErrors(newErrors);
     }
-  };
-
-  const createPost = async () => {
-    return await axios.post("http://localhost:8000/posts", {
-      title,
-      featuredImage: selectedFile,
-      content: editorHtmlValue,
-      tags,
-    });
   };
 
   return (
