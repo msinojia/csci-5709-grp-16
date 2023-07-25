@@ -18,6 +18,7 @@ const cronJob = cron.schedule("* * * * *", async () => {
         featuredImage: scheduledPost.featuredImage,
         content: scheduledPost.content,
         tags: scheduledPost.tags,
+        authorId: scheduledPost.authorId,
       });
 
       await post.save();

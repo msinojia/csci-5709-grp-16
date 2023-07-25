@@ -130,7 +130,8 @@ const PostForm = () => {
   const createPost = async (scheduledDateTime = null) => {
     let { formValid, newErrors } = isFormValid();
     if (formValid) {
-      // Handle form submission and post creation
+      const authorId = localStorage.getItem("authorId");
+
       try {
         let endpoint = "/posts";
 
@@ -139,6 +140,7 @@ const PostForm = () => {
           featuredImage: selectedFile,
           content: editorHtmlValue,
           tags,
+          authorId,
         };
 
         if (scheduledDateTime) {
