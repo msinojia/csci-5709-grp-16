@@ -27,7 +27,9 @@ const cronJob = cron.schedule("* * * * *", async () => {
       await ScheduledPost.findByIdAndRemove(scheduledPost._id);
     }
 
-    console.log(`Moved ${scheduledPosts.length} scheduled posts`);
+    if (scheduledPosts.length > 0) {
+      console.log(`Moved ${scheduledPosts.length} scheduled posts`);
+    }
   } catch (error) {
     console.error("Error processing cron job:", error);
   }
