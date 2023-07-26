@@ -1,3 +1,5 @@
+// Author: Pakshal Shah
+
 // backend/routes/subscriptions.js
 const express = require('express');
 // const { useState } = require('react');
