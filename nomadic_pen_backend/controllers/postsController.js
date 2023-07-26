@@ -34,13 +34,13 @@ exports.fetchPosts = async (req, res) => {
     const allPosts = await Post.find({});
 
     // Send the fetched posts in the specified format
-    const formattedPosts = allPosts.map(({ _id, title, featuredImage, content, tags, createdAt }) => ({
+    const formattedPosts = allPosts.map(({ _id, title, featuredImage, content, tags, authorId,createdAt }) => ({
       _id,
       title,
       featuredImage,
       content,
       tags,
-      penName,
+      authorId,
       createdAt
     }));
 
