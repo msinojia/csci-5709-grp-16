@@ -50,7 +50,7 @@ const UserDetailsBox = ({penName,setPenName, userEmail, setUserEmail}) => {
                     const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[a-zA-Z]).{5,}$/;
                     if (passwordRegex.test(newPassword)) {
                         axios
-                            .post("http://nomadic-pen.onrender.com/profile/changePassword", {
+                            .post("https://nomadic-pen.onrender.com/profile/changePassword", {
                                 userEmail,
                                 oldPassword,
                                 newPassword,
