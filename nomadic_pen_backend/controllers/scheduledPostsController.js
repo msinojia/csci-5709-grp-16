@@ -1,3 +1,5 @@
+/* Author: Meet Sinojia */
+
 const ScheduledPost = require("../models/ScheduledPost");
 
 exports.createScheduledPost = async (req, res) => {

@@ -1,3 +1,5 @@
+/* Author: Meet Sinojia */
+
 import { useState } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import * as Emoji from "quill-emoji";

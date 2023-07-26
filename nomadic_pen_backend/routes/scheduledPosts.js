@@ -1,4 +1,5 @@
-// routes/scheduledPosts.js
+/* Author: Meet Sinojia */
+
 const express = require("express");
 const router = express.Router();
 const scheduledPostsController = require("../controllers/scheduledPostsController");

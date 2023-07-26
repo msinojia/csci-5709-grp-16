@@ -1,3 +1,5 @@
+/* Author: Meet Sinojia */
+
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "@mui/material";
