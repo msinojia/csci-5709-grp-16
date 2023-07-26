@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom'; 
+import FileUploader from "./CreatePost/FileUploader";
 import {
   Box,
   TextField,
   Button,
   Link,
   Typography,
+  Grid,
+  Container,
 } from "@mui/material";
 
 const CreateAccount = () => {
@@ -26,6 +29,7 @@ const CreateAccount = () => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isContactValid, setIsContactValid] = useState(true);
   const [emailErrorMessage, setEmailErrorMessage] = useState("Invalid email address");
+  const [selectedFile, setSelectedFile] = useState(null);
 
  
   const handleSubmit = async (event) => {
@@ -33,6 +37,7 @@ const CreateAccount = () => {
 
     try {
       let enrollDate=new Date();
+    const dobDate = new Date(dob);
       const body=JSON.stringify({
         firstName,
         lastName,
@@ -42,7 +47,7 @@ const CreateAccount = () => {
         email,
         contact,
         password,
-        profilePic: "",
+        profilePic: selectedFile,
         enrollmentDate: enrollDate
       });
       console.log(body);
@@ -73,12 +78,12 @@ const CreateAccount = () => {
         setEmailErrorMessage(errorMessage);
         setIsEmailValid(false);
       }
-
       
     } catch (error) {
       // Handle any API request errors here
       console.error("Error: ", error);
     }
+
   };
 
   const handlePasswordChange = (event) => {
@@ -100,6 +105,10 @@ const CreateAccount = () => {
     }
   };
 
+  const handleFileChange = (file) => {
+    setSelectedFile(file);
+  };
+
   const handleContactChange = (event) => {
     setIsContactValid(true);
     setContact(event.target.value);
@@ -116,12 +125,27 @@ const CreateAccount = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        maxWidth: "400px",
+        
         mx: "auto",
         my: 4,
       }}
       onSubmit={handleSubmit}
     >
+      <Container >
+      <Grid container spacing={3} direction="row-reverse">
+        <Grid item xs={6}>
+      <Box mt={3} textAlign="center" >
+        <Typography variant="body1" sx={{ fontWeight: "bold" }} gutterBottom>
+          Profile Picture:
+        </Typography>
+        <FileUploader
+          selectedFile={selectedFile}
+          onFileChange={handleFileChange}
+        />
+      </Box>
+      </Grid> 
+      
+      <Grid item xs={6}>
       <Typography variant="h4" gutterBottom>
         Create an Account
       </Typography>
@@ -229,6 +253,7 @@ const CreateAccount = () => {
           Already have an account? <Link href="/login" underline="hover">Login</Link>
         </Typography>
       </Box>
+      </Grid></Grid></Container>
     </Box>
   );
 };
