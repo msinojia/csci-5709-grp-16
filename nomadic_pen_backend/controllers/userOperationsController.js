@@ -1,3 +1,4 @@
+/* By Jasmeet singh */
 const User = require("../models/user");
 const sendEmail = require("../services/emailService"); 
 const bcrypt = require('bcryptjs');

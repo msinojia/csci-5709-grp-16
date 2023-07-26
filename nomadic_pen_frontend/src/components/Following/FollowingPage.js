@@ -52,7 +52,7 @@ const FollowingPage = () => {
                     alt={`Profile of ${post.title}`} />
                   <h3>{post.title}</h3>
                   <h5> Posted On <b>{formatDate(post.createdAt)}</b></h5>
-                  // By <b>{post.authorId}</b>
+                   {/* By <b>{post.authorId}</b> */}
                   {/* <div className='content' dangerouslySetInnerHTML={{ __html: post.content }} /> */}
                   <Link to={"/posts/" + post._id}>
                     More...
