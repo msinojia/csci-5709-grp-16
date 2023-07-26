@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   TextField,
   Button,
@@ -9,6 +10,11 @@ import {
   Menu,
   MenuItem,
   Paper,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import { ArrowDropDown as ArrowDropDownIcon } from "@mui/icons-material";
 import axios from "axios";
@@ -29,12 +35,15 @@ const PostForm = () => {
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
+  const [scheduleConfirmOpen, setScheduleConfirmOpen] = useState(false);
 
   const [errors, setErrors] = useState({
     title: false,
     featuredImage: false,
     content: false,
   });
+
+  const navigate = useNavigate();
 
   const handleTagInput = (e) => {
     if (e.key === " ") {
@@ -91,6 +100,11 @@ const PostForm = () => {
   const handleSchedule = async (selectedDate) => {
     setIsScheduleOpen(false);
     await createPost(selectedDate);
+  };
+
+  const handleScheduleConfirmClose = async () => {
+    setScheduleConfirmOpen(false);
+    navigate("/posts/following");
   };
 
   const handleSubmit = async (event) => {
@@ -162,6 +176,12 @@ const PostForm = () => {
           setEditorHtmlValue("");
           setTags([]);
           setTagInput("");
+
+          if (!scheduledDateTime) {
+            navigate("/posts/" + response.data.data._id);
+          } else {
+            setScheduleConfirmOpen(true);
+          }
         } else {
           console.log("Error creating post:", response);
         }
@@ -300,6 +320,28 @@ const PostForm = () => {
             onClose={handleScheduleClose}
             onSchedule={handleSchedule}
           />
+          <Dialog
+            open={scheduleConfirmOpen}
+            onClose={handleScheduleConfirmClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">Post Scheduled</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Your blog post has been scheduled successfully!
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={handleScheduleConfirmClose}
+                color="primary"
+                autoFocus
+              >
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
         </form>
       </Paper>
     </Box>
