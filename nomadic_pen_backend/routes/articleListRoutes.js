@@ -5,5 +5,6 @@ const router = express.Router();
 
 // Define the route for fetching all articles
 router.get('/', articleListController.getAllArticles);
+router.get('/:userEmail', articleListController.getArticlesByArticleId);
 
 module.exports = router;
