@@ -1,10 +1,10 @@
 .manage-subscription-page {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    flex-wrap: wrap; /* Allow content to wrap */
-    background-color: #f4f4f4;
+    flex-wrap: wrap; 
+    /* background-color: #f4f4f4; */
     height: 100%;
   }
   
@@ -14,16 +14,16 @@
   
   
   .subscription-plans {
-    display: flex;
+    /* display: flex; */
     justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap; /* Allow plans to wrap */
-    max-width: 1200px;
+    /* gap: 20px; */
+    /* flex-wrap: wrap;  */
+    /* max-width: 1200px; */
     margin: auto;
   }
   
   .plan {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
     flex: 1 1 300px; /* Set a fixed width for each plan */
@@ -96,10 +96,7 @@
       align-items: center;
     }
   
-    .plan {
-      width: 100%; /* Full width on small screens */
-      max-width: 500px;
-    }
+
   
     /* CSS for the footer */
     .footer {

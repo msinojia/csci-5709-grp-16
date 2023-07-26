@@ -81,3 +81,10 @@ body{
 .content img {
   width: 500px;
 }
+
+
+.travel-article {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
