@@ -1,20 +1,32 @@
+/* Author: Sreejith Nair */
 import React, {useState} from 'react';
 import * as MUI from '@mui/material';
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@mui/material';
-
+import axios from "axios";
 const EditPenNameDialog = ({ penName,setPenName,open,setOpen,handleClose}) => {
     const [newPenName, setNewPenName] = useState('');
     const [isPenNameTaken, setIsPenNameTaken] = useState(false);
-    const takenPenNames = ['@JohnDoe', '@Sreejith'];
-
     const handleUpdatePenName = () => {
-        if (takenPenNames.includes(newPenName)) {
-            setIsPenNameTaken(true);
-        } else {
-            setPenName(newPenName);
-            handleClose();
-            setIsPenNameTaken(false);
-        }
+        const userEmail = localStorage.getItem("email");
+        axios.post(`http://nomadic-pen.onrender.com/profile/updatePenName/${userEmail}`, { newPenName })
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log('penname response:',response.data);
+                    const { isPenNameTaken } = response.data;
+                    if (isPenNameTaken) {
+                        setIsPenNameTaken(true);
+                    } else {
+                        alert('Pen name updated');
+                        setPenName(newPenName);
+                        handleClose();
+                        setIsPenNameTaken(false);
+                    }
+                }
+            })
+            .catch((error) => {
+                console.error('Error updating penName:', error);
+                setIsPenNameTaken(false);
+            });
     };
     return (
         <>
@@ -40,6 +52,6 @@ const EditPenNameDialog = ({ penName,setPenName,open,setOpen,handleClose}) => {
             </Dialog>
         </>
     );
-}
+};
 export default EditPenNameDialog;
 

@@ -1,3 +1,4 @@
+/* Author: Sreejith Nair */
 import React, { useState, useRef, useEffect} from 'react';
 import * as MUI from '@mui/material';
 import '../../styles/ProfilePage.css';
