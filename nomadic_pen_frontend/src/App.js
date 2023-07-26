@@ -7,6 +7,7 @@ import PostForm from "./components/CreatePost/PostForm";
 import { ThemeProvider } from "@mui/material";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import theme from "./components/theme";
+import TravelGuide from "./components/TravelGuide/TravelGuide";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/posts/create" element={<PostForm />} />
+            <Route exact path="/travel-guide" element={<TravelGuide/>} />
+            {/*<Route exact path="/travel-guide/blog" element={<TravelGuideBlog/>} />DO NOT REMOVE */}
           </Routes>
         </BrowserRouter>
       </div>
