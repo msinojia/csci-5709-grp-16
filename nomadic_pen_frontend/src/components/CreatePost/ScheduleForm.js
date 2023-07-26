@@ -1,3 +1,5 @@
+/* Author: Meet Sinojia */
+
 import React, { useState } from "react";
 import {
   Dialog,
@@ -6,7 +8,6 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-/* Author: Meet Sinojia */
 
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
