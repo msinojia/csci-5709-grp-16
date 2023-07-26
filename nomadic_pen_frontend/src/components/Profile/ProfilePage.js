@@ -15,6 +15,9 @@ const ProfilePage = () => {
     const [lastName, setLastName] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [totalPosts, setTotalPosts] = useState(0); // Initialize totalPosts state to 0
+    const [dob, setDob] = useState('');
+    const [contact, setContact] = useState('');
+    const [enrollmentDate, setEnrollmentDate] = useState('');
 
     useEffect(() => {
         // Fetch the user's profile picture
@@ -25,12 +28,15 @@ const ProfilePage = () => {
             .then((response) => {
                 console.log('response:',response);
 
-                const { profilePic, firstName, lastName, email, penName, totalPosts } = response.data;
+                const { profilePic, firstName, lastName, email, penName, totalPosts, dob, contact, enrollmentDate} = response.data;
                 setProfilePicture(profilePic);
                 setFirstName(firstName);
                 setLastName(lastName);
                 setUserEmail(email);
                 setPenName(penName);
+                setDob(dob);
+                setContact(contact);
+                setEnrollmentDate(enrollmentDate);
                 setTotalPosts(totalPosts);
             })
             .catch((error) => {
@@ -96,7 +102,7 @@ const ProfilePage = () => {
                                     <MUI.Button variant="contained" size="small" onClick={handleProfilePictureChange}>Change Picture</MUI.Button>
                                 </div>
                             </Box>
-                            <UserDetailsBox penName={penName} setPenName={setPenName} userEmail={userEmail} setUserEmail={setUserEmail}/>
+                            <UserDetailsBox penName={penName} setPenName={setPenName} userEmail={userEmail} setUserEmail={setUserEmail} dob={dob} setDob={setDob} enrollmentDate={enrollmentDate} setEnrollmentDate={setEnrollmentDate} contact={contact} setContact={setContact}/>
                         </Box>
                     </Grid>
                     <Grid name="grid2" item xs={12} sm={6} md={9} sx={{flex: '1 1 auto', width: '100%', display: 'flex', flexDirection: 'column'}}>
@@ -104,7 +110,7 @@ const ProfilePage = () => {
                             <Box name="featureBox" sx={{ height: '180px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#ffff' }}>
                                 <div>
                                     <h1 style={{ margin: 0 }}>{firstName} {lastName}</h1>
-                                    <h3 style={{ margin: 0 }}>Software Developer | {penName}</h3>
+                                    <h3 style={{ margin: 0 }}>{penName}</h3>
                                 </div>
                                 <Box name="followerBox" sx={{ display: 'flex'}}>
                                     <Box sx={{ textAlign: 'center', marginRight: '10px',border: '1px solid black', borderRadius: '12px',padding: '5px', boxShadow: '2px 4px 8px rgba(0, 0, 0, 4)', }}>
