@@ -9,6 +9,6 @@ router.get('/travel-guide/fetch-feature-cities', travelGuideController.fetchFeat
 
 router.get('/travel-guide/fetch-feature-durations', travelGuideController.fetchFeatureDurations);
 
-router.post('/travel-guide/view-blog')
+router.get('/travel-guide/article/:id', travelGuideController.fetchTravelGuideArticle)
 
 module.exports = router;

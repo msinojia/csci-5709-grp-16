@@ -18,6 +18,7 @@ import {
     Call as ContactUsIcon,
     QuestionMark as FAQsIcon,
     Login as LoginIcon,
+    Person2 as ProfileIcon,
     ExitToApp as LogoutIcon,
 } from "@mui/icons-material";
 
@@ -44,6 +45,10 @@ function contact() {
 
 function faq() {
     window.location.href = "./faq";
+}
+
+function profile() {
+    window.location.href = "./profile";
 }
 
 function userLogin()
@@ -150,6 +155,14 @@ const Header = () => {
                 {/* Navigation Options - Visible on larger screens */}
                 {!isSmallerScreen && (
                     <>
+                        <IconButton
+                            color="inherit"
+                            onClick={() => {
+                                profile();
+                            }}
+                        >
+                            <ProfileIcon/>
+                        </IconButton>
                         <IconButton
                             color="inherit"
                             onClick={() => {

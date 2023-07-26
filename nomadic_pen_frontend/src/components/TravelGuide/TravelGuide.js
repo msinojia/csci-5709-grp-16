@@ -1,4 +1,5 @@
 import {
+    Box,
     Button,
     Card,
     CardContent,
@@ -8,6 +9,7 @@ import {
 } from '@mui/material';
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {useNavigate} from 'react-router-dom';
 // import TravelGuideBlog from "./TravelGuideBlog";
 
 const TravelGuide = () => {
@@ -17,6 +19,8 @@ const TravelGuide = () => {
     const [blogData, setBlogData] = useState([]);
     const [featureCities, setFeatureCities] = useState([]);
     const [featureDuration, setFeatureDuration] = useState([]);
+
+    const navigate = useNavigate();
 
     const Blog = ({title, abstract, imageSrc}) => {
         return (
@@ -93,56 +97,58 @@ const TravelGuide = () => {
 
     const filterDurations = userDurationInput === 'None' ? filterCities : filterCities.filter((blog)=>blog.duration===userDurationInput)
 
-    const handleBlogClick = (post) => {
-        console.log("GHello");
-        // return TravelGuideBlog({title:post.article_title, content:post.article_content,
-        // imageSrc:post.article_image, author:post.article_author_id, date:post.article_post_date});
+    const handleBlogClick = (id) => {
+        navigate(`/travel-guide/article/${id}`, {state: id.toString()});
     };
 
     return (
         <div className="App">
 
-            <section style={{backgroundColor:"#FDEE00", padding:"5rem", display:"block", alignItems:"center", height:"30vh"}}>
-                <Typography variant="h1" component="div" sx={{ flexGrow: 1, mx:'auto' }} color="#000000" fontFamily="Calibri" >
+            <section style={{backgroundColor:"#FDEE00", padding:"5rem", display:"block", alignItems:"center", justifyContent:"center", height:"30vh"}}>
+                <Typography variant="h1" component="div" sx={{ flexGrow: 1, mx:'auto' }} color="#000000" fontFamily="Calibri" align="center">
                     Travel Guide
                 </Typography>
-                <Typography variant="h2" component="div" sx={{ flexGrow: 1, mx:'auto' }} color="#000000" fontFamily="Calibri">
+                <Typography variant="h2" component="div" sx={{ flexGrow: 1, mx:'auto' }} color="#000000" fontFamily="Calibri" align="center">
                     See what's pop'n in the travel community
                 </Typography>
             </section>
 
-            <section style={{backgroundColor:"#FDEE00", padding:"1rem", height:"5vh"}}>
-                {featureCities.map((city, index)=>(
-                    <Button value={city} key={index} onClick={()=>setUserInput(city)} variant="contained"
-                            style={{backgroundColor:userInput===city?"#023047":"#FEFEFA",
-                                color:userInput===city?"#FEFEFA":"#000000", marginRight:"1rem"}}>
-                        {city}
+            <section style={{backgroundColor:"#FDEE00", padding:"1rem", height:"5vh", alignItems:"center", justifyContent:"center"}}>
+                <Box textAlign='center'>
+                    {featureCities.map((city, index)=>(
+                        <Button value={city} key={index} onClick={()=>setUserInput(city)} variant="contained"
+                                style={{backgroundColor:userInput===city?"#023047":"#FEFEFA",
+                                    color:userInput===city?"#FEFEFA":"#000000", marginRight:"1rem"}}>
+                            {city}
+                        </Button>
+                    ))}
+                    <Button value="N" onClick={()=>setUserInput("None")} variant="contained"
+                            style={{backgroundColor:"#FEFEFA", color:"#000000"}}>
+                        Reset selection
                     </Button>
-                ))}
-                <Button value="N" onClick={()=>setUserInput("None")} variant="contained"
-                        style={{backgroundColor:"#FEFEFA", color:"#000000"}}>
-                    Reset selection
-                </Button>
+                </Box>
             </section>
 
             <section style={{backgroundColor:"#F0F8FF", padding:"1rem", height:"5vh"}}>
-                {featureDuration.map((duration, index)=>(
-                    <Button value={duration} key={index} onClick={()=>setUserDurationInput(duration.toString())} variant="contained"
-                            style={{backgroundColor:userDurationInput===duration.toString()?"#3a5a40":"#000000",
-                                color:userDurationInput===duration.toString()?"#dad7cd":"#FEFEFA", marginRight:"1rem"}}>
-                        {duration} - Day Trip
+                <Box textAlign='center'>
+                    {featureDuration.map((duration, index)=>(
+                        <Button value={duration} key={index} onClick={()=>setUserDurationInput(duration.toString())} variant="contained"
+                                style={{backgroundColor:userDurationInput===duration.toString()?"#3a5a40":"#000000",
+                                    color:userDurationInput===duration.toString()?"#dad7cd":"#FEFEFA", marginRight:"1rem"}}>
+                            {duration} - Day Trip
+                        </Button>
+                    ))}
+                    <Button value="N" onClick={()=>setUserDurationInput("None")} variant="contained"
+                            style={{backgroundColor:"#000000", color:"#FEFEFA"}}>
+                        Reset selection
                     </Button>
-                ))}
-                <Button value="N" onClick={()=>setUserDurationInput("None")} variant="contained"
-                        style={{backgroundColor:"#000000", color:"#FEFEFA"}}>
-                    Reset selection
-                </Button>
+                </Box>
             </section>
 
-            <Grid container spacing={3}>
+            <Grid container spacing={3} padding={10}>
                 {filterDurations.map((post, index)=>(
                     <Grid item xs={12} sm={6} md={4} key={index}
-                          onClick={() => handleBlogClick(post)}>
+                          onClick={() => handleBlogClick(post.article_id)}  alignItems={'center'} justify={'center'}>
                         {Blog({title:post.article_title,abstract:post.article_abstract,imageSrc:post.article_image,content:post.article_content})}
                     </Grid>
                 ))}
