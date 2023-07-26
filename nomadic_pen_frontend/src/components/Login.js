@@ -42,7 +42,8 @@ const LoginForm = () => {
         // Save the bearer token in localStorage
         localStorage.setItem("bearerToken", data.bearerToken);
         localStorage.setItem("email", data.userId);
-        navigate('/');
+        // navigate('/');
+        window.location.href = "/posts/following";
       } else {
         
        // setIsEmailValid(false);

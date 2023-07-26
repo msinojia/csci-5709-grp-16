@@ -5,8 +5,6 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  Button,
-  ButtonGroup,
   Grid,
   useMediaQuery,
   useTheme,
@@ -65,6 +63,7 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("bearerToken");
     setIsAuthenticated(false);
+    window.location.href = "/";
   };
 
   return (
@@ -143,42 +142,10 @@ const Header = () => {
             <IconButton
               color="inherit"
               onClick={() => {
-                window.location.href = "/subscribe";
-              }}
-            >
-              Subscribe
-            </IconButton>
-            <IconButton
-              color="inherit"
-              onClick={() => {
                 window.location.href = "/travel-guide";
               }}
             >
               Travel Guide
-            </IconButton>
-            <IconButton
-              color="inherit"
-              onClick={() => {
-                window.location.href = "/posts/following";
-              }}
-            >
-              Following
-            </IconButton>
-            <IconButton
-              color="inherit"
-              onClick={() => {
-                window.location.href = "/posts/create";
-              }}
-            >
-              Create Post
-            </IconButton>
-            <IconButton
-              color="inherit"
-              onClick={() => {
-                profile();
-              }}
-            >
-              Profile
             </IconButton>
             <IconButton
               color="inherit"
@@ -197,14 +164,48 @@ const Header = () => {
               FAQs
             </IconButton>
             {isAuthenticated ? (
-              <IconButton
-                color="inherit"
-                onClick={() => {
-                  handleLogout();
-                }}
-              >
-                Logout
-              </IconButton>
+              <>
+                <IconButton
+                  color="inherit"
+                  onClick={() => {
+                    window.location.href = "/subscribe";
+                  }}
+                >
+                  Subscribe
+                </IconButton>
+                <IconButton
+                  color="inherit"
+                  onClick={() => {
+                    window.location.href = "/posts/following";
+                  }}
+                >
+                  Following
+                </IconButton>
+                <IconButton
+                  color="inherit"
+                  onClick={() => {
+                    window.location.href = "/posts/create";
+                  }}
+                >
+                  Create Post
+                </IconButton>
+                <IconButton
+                  color="inherit"
+                  onClick={() => {
+                    profile();
+                  }}
+                >
+                  Profile
+                </IconButton>
+                <IconButton
+                  color="inherit"
+                  onClick={() => {
+                    handleLogout();
+                  }}
+                >
+                  Logout
+                </IconButton>
+              </>
             ) : (
               <IconButton
                 color="inherit"
