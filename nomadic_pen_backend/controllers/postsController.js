@@ -2,7 +2,7 @@ const Post = require("../models/Post");
 
 exports.createPost = async (req, res) => {
   try {
-    const { title, featuredImage, content, tags } = req.body;
+    const { title, featuredImage, content, tags, authorId } = req.body;
 
     // Create a new post using the Post model
     const post = new Post({
@@ -10,6 +10,7 @@ exports.createPost = async (req, res) => {
       featuredImage,
       content,
       tags,
+      authorId,
     });
 
     // Save the post to the database

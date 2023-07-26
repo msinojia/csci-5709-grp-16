@@ -5,6 +5,8 @@ const postSchema = new mongoose.Schema({
   featuredImage: { type: String, required: true },
   content: { type: String, required: true },
   tags: { type: [String], default: [] },
+  createdAt: { type: Date, default: Date.now },
+  authorId: { type: String, required: true },
 });
 
 const Post = mongoose.model("Post", postSchema);

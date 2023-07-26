@@ -2,7 +2,8 @@ const ScheduledPost = require("../models/ScheduledPost");
 
 exports.createScheduledPost = async (req, res) => {
   try {
-    const { title, featuredImage, content, tags, scheduledDateTime } = req.body;
+    const { title, featuredImage, content, tags, scheduledDateTime, authorId } =
+      req.body;
 
     // Create a new scheduled post using the ScheduledPost model
     const scheduledPost = new ScheduledPost({
@@ -11,6 +12,7 @@ exports.createScheduledPost = async (req, res) => {
       content,
       tags,
       scheduledDateTime,
+      authorId,
     });
 
     // Save the scheduled post to the database
