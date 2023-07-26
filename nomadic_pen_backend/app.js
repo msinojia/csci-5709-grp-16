@@ -1,11 +1,13 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
 
 const connectDB = require("./db");
 const postRoutes = require("./routes/posts");
 const scheduledPostRoutes = require("./routes/scheduledPosts");
 const articleRoutes = require('./routes/articleListRoutes');
+const cron = require("./utils/cron");
+const travelGuideRoutes = require("./routes/travelGuideRoutes");
+const usersRoutes = require("./routes/users");
 
 const app = express();
 app.use(express.json({ limit: "10mb" }));
@@ -18,9 +20,14 @@ connectDB();
 app.use("/posts", postRoutes);
 app.use("/scheduled-posts", scheduledPostRoutes);
 app.use("/fetchAllArticles", articleRoutes);
+app.use("/nomadic-pen", travelGuideRoutes);
+app.use("/user", usersRoutes);
 
 // Start the server
 const port = 8000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+// Start the cron job
+cron.start();

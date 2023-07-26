@@ -8,6 +8,11 @@ import { ThemeProvider } from "@mui/material";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import theme from "./components/theme";
 import ProfilePage from "./components/Profile/ProfilePage";
+import TravelGuide from "./components/TravelGuide/TravelGuide";
+import TravelGuideArticle from "./components/TravelGuide/TravelGuideArticle";
+import Login from "./components/Login";
+import CreateAccount from "./components/CreateAccount";
+import Reset from "./components/Reset";
 
 function App() {
   return (
@@ -21,6 +26,12 @@ function App() {
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/posts/create" element={<PostForm />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/login" element={<Login/>} />
+            <Route path='/signup' element={<CreateAccount/>} />
+            <Route path='reset' element={<Reset/>} />
+            <Route exact path="/travel-guide" element={<TravelGuide/>} />
+            <Route exact path="/travel-guide/article/:id" element={<TravelGuideArticle/>} />
+            {/*<Route exact path="/travel-guide/blog" element={<TravelGuideBlog/>} />DO NOT REMOVE */}
           </Routes>
         </BrowserRouter>
       </div>
