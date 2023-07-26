@@ -7,6 +7,8 @@ import PostForm from "./components/CreatePost/PostForm";
 import { ThemeProvider } from "@mui/material";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import theme from "./components/theme";
+import FollowingPage from "./components/Following/FollowingPage";
+import BlogPost from "./components/Following/BlogPost";
 import ProfilePage from "./components/Profile/ProfilePage";
 import TravelGuide from "./components/TravelGuide/TravelGuide";
 import TravelGuideArticle from "./components/TravelGuide/TravelGuideArticle";
@@ -28,6 +30,8 @@ function App() {
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/posts/create" element={<PostForm />} />
+            <Route path="/posts/following" element={<FollowingPage />} />
+            <Route path="/posts/:id" element={<BlogPost />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/login" element={<Login/>} />
             <Route path='/signup' element={<CreateAccount/>} />
