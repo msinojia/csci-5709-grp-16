@@ -1,3 +1,5 @@
+/* Author: Meet Sinojia */
+
 const cron = require("node-cron");
 const ScheduledPost = require("../models/ScheduledPost");
 const Post = require("../models/Post");

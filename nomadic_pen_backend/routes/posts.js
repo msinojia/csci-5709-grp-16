@@ -1,9 +1,11 @@
+/* Authors: Meet Sinojia, Jamini Bhatt */
+
 const express = require("express");
 const postsController = require("../controllers/postsController");
 
 const router = express.Router();
 
-// Define the route for creating a new post
+/* By Meet Sinojia */
 router.post("/", postsController.createPost);
 
 
