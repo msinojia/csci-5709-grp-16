@@ -52,7 +52,7 @@ const CreateAccount = () => {
         enrollmentDate: enrollDate
       });
       console.log(body);
-      const response = await fetch("http://nomadic-pen.onrender.com/user", {
+      const response = await fetch("https://nomadic-pen.onrender.com/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

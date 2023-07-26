@@ -165,7 +165,7 @@ const PostForm = () => {
         }
 
         const response = await axios.post(
-          "http://0.0.0.0:8000" + endpoint,
+          "https://nomadic-pen.onrender.com" + endpoint,
           postData
         );
 

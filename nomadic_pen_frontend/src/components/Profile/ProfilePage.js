@@ -21,7 +21,7 @@ const ProfilePage = () => {
         console.log('Fetching user Profile pic');
         const userEmail = localStorage.getItem("email");
 
-        axios.get(`http://nomadic-pen.onrender.com/profile/getUserProfileDetails/${userEmail}`)
+        axios.get(`https://nomadic-pen.onrender.com/profile/getUserProfileDetails/${userEmail}`)
             .then((response) => {
                 console.log('response:',response);
 
@@ -63,7 +63,7 @@ const ProfilePage = () => {
             const email = localStorage.getItem("email");
             // Call the backend API to upload the profile picture
             const response = await axios.post(
-                'http://nomadic-pen.onrender.com/profile/uploadProfilePicture',
+                'https://nomadic-pen.onrender.com/profile/uploadProfilePicture',
                 { email, profilePicture: base64Image }
             );
 
