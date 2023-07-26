@@ -63,7 +63,7 @@ const UserDetailsBox = ({penName,setPenName, userEmail, setUserEmail, dob, setDo
                                     // Remove the "email" key from local storage
                                     localStorage.removeItem("email");
                                     localStorage.removeItem("bearerToken");
-                                    navigate('/login');
+                                    window.location.href = "/login";
                                 }
                             })
                             .catch((error) => {
