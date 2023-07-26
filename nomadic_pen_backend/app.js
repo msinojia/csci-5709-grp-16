@@ -10,9 +10,8 @@ const travelGuideRoutes = require("./routes/travelGuideRoutes");
 const usersRoutes = require("./routes/users");
 
 const app = express();
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "25mb" }));
 app.use(cors());
-
 // Set up MongoDB connection
 connectDB();
 
@@ -22,6 +21,7 @@ app.use("/scheduled-posts", scheduledPostRoutes);
 app.use("/fetchAllArticles", articleRoutes);
 app.use("/nomadic-pen", travelGuideRoutes);
 app.use("/user", usersRoutes);
+app.use('/api/subscriptions', require('./routes/subscriptionRoutes'));
 
 // Start the server
 const port = 8000;

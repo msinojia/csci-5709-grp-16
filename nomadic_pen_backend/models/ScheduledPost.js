@@ -1,3 +1,5 @@
+/* Author: Meet Sinojia */
+
 const mongoose = require("mongoose");
 
 const scheduledPostSchema = new mongoose.Schema({

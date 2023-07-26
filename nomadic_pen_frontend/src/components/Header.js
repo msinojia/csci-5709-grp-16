@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     AppBar,
     Box,
@@ -19,6 +19,7 @@ import {
     QuestionMark as FAQsIcon,
     Login as LoginIcon,
     Person2 as ProfileIcon,
+    ExitToApp as LogoutIcon,
 } from "@mui/icons-material";
 
 import NavigationDrawer from "./NavigationDrawer";
@@ -50,6 +51,11 @@ function profile() {
     window.location.href = "./profile";
 }
 
+function userLogin()
+{
+    window.location.href="./login";
+}
+
 const Header = () => {
     const theme = useTheme();
     const isSmallerScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -59,6 +65,18 @@ const Header = () => {
     const toggleDrawer = () => {
         setIsDrawerOpen(!isDrawerOpen);
     };
+
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const bearerToken = localStorage.getItem("bearerToken");
+    setIsAuthenticated(!!bearerToken);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("bearerToken");
+    setIsAuthenticated(false);
+  };
 
     return (
         <AppBar position="static">
@@ -160,12 +178,30 @@ const Header = () => {
                             }}
                         >
                             <FAQsIcon />
-                        </IconButton>
-                        <Button color="inherit" variant="outlined" startIcon={<LoginIcon />}>
-                            Login
-                        </Button>
-                    </>
-                )}
+                            </IconButton>
+            {isAuthenticated ? (
+              <Button
+                color="inherit"
+                variant="outlined"
+                startIcon={<LogoutIcon />}
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            ) : (
+              <Button
+                color="inherit"
+                variant="outlined"
+                startIcon={<LoginIcon />}
+                onClick={() => {
+                  userLogin();
+                }}
+              >
+                Login
+              </Button>
+            )}
+          </>
+        )}
             </Toolbar>
 
             {/* Drawer - Visible on smaller screens */}
