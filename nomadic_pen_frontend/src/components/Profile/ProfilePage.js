@@ -1,15 +1,42 @@
-import React, { useState, useRef} from 'react';
+import React, { useState, useRef, useEffect} from 'react';
 import * as MUI from '@mui/material';
 import '../../styles/ProfilePage.css';
 import { Box, Typography, Grid} from '@mui/material';
 import ArticleBox from "./ArticleBox";
 import UserDetailsBox from "./UserDetails";
+import axios from "axios";
 
 const ProfilePage = () => {
-    const [profilePicture, setProfilePicture] = useState('/assets/profile-page/profile-photos/dummy_dp.jpg');
+    const [profilePicture, setProfilePicture] = useState('');
     const fileInputRef = useRef(null);
     const [penName, setPenName] = useState('@Xcalibur11');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [totalPosts, setTotalPosts] = useState(0); // Initialize totalPosts state to 0
 
+    useEffect(() => {
+        // Fetch the user's profile picture
+        console.log('Fetching user Profile pic');
+        const userEmail = localStorage.getItem("email");
+
+        axios.get(`http://localhost:8000/profile/getUserProfileDetails/${userEmail}`)
+            .then((response) => {
+                console.log('response:',response);
+
+                const { profilePic, firstName, lastName, email, penName, totalPosts } = response.data;
+                setProfilePicture(profilePic);
+                setFirstName(firstName);
+                setLastName(lastName);
+                setUserEmail(email);
+                setPenName(penName);
+                setTotalPosts(totalPosts);
+            })
+            .catch((error) => {
+                console.error('Error fetching profile picture:', error);
+            });
+    }, []);
+    
     const handleProfilePictureChange = () => {
         fileInputRef.current.click();
     };
@@ -18,13 +45,39 @@ const ProfilePage = () => {
         const file = event.target.files[0];
         if (file) {
             setProfilePicture(URL.createObjectURL(file));
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                // Get the Base64 representation of the image
+                const base64Image = reader.result;
+                // Call the backend API to upload the profile picture
+                uploadProfilePicture(base64Image);
+            };
+            reader.readAsDataURL(file);
         }
     };
 
+    const uploadProfilePicture = async (base64Image) => {
+        try {
+            const email = localStorage.getItem("email");
+            // Call the backend API to upload the profile picture
+            const response = await axios.post(
+                'http://localhost:8000/profile/uploadProfilePicture',
+                { email, profilePicture: base64Image }
+            );
+
+            if (response.status === 200) {
+                setProfilePicture(base64Image);
+                alert('Profile picture uploaded successfully!');
+            }
+        } catch (error) {
+            console.error('Error uploading profile picture:', error);
+            alert('Error uploading profile picture.');
+        }
+    };
     /* Mock data*/
-    const totalPosts = 10;
-    const followers = 999;
-    const following = 120;
+    const followers = 0;
+    const following = 0;
 
 
     return (
@@ -42,14 +95,14 @@ const ProfilePage = () => {
                                     <MUI.Button variant="contained" size="small" onClick={handleProfilePictureChange}>Change Picture</MUI.Button>
                                 </div>
                             </Box>
-                            <UserDetailsBox penName={penName} setPenName={setPenName}/>
+                            <UserDetailsBox penName={penName} setPenName={setPenName} userEmail={userEmail} setUserEmail={setUserEmail}/>
                         </Box>
                     </Grid>
                     <Grid name="grid2" item xs={12} sm={6} md={9} sx={{flex: '1 1 auto', width: '100%', display: 'flex', flexDirection: 'column'}}>
                         <Box name="bannerBox" sx={{ flex: 1, flexDirection: 'column', display: 'flex', marginLeft: '20px', marginRight: '20px'}}>
                             <Box name="featureBox" sx={{ height: '180px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#ffff' }}>
                                 <div>
-                                    <h1 style={{ margin: 0 }}>Sreejith Nair</h1>
+                                    <h1 style={{ margin: 0 }}>{firstName} {lastName}</h1>
                                     <h3 style={{ margin: 0 }}>Software Developer | {penName}</h3>
                                 </div>
                                 <Box name="followerBox" sx={{ display: 'flex'}}>

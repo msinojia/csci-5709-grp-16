@@ -6,7 +6,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import React, {useState} from "react";
 import EditPenNameDialog from "./EditPenNameDialog";
 
-const UserDetailsBox = ({penName,setPenName}) => {
+const UserDetailsBox = ({penName,setPenName, userEmail, setUserEmail}) => {
     const [open, setOpen] = useState(false);
     const [openPasswordChange, setOpenPasswordChange] = useState(false);
     const [oldPassword, setOldPassword] = useState('');
@@ -69,7 +69,6 @@ const UserDetailsBox = ({penName,setPenName}) => {
     };
 
     /* Mock data*/
-    const email = 'sr816885@dal.ca';
     const subscriptionStatus = 'Subscribed';
     const twitterHandle = '@sreejithexample';
     const instagramHandle = '@sreejithNairexample';
@@ -79,7 +78,7 @@ const UserDetailsBox = ({penName,setPenName}) => {
         <>
             <Box name="userDetailBox" sx={{width: 'fit-content',alignItems: 'left', flexDirection: 'column', gap: '100px',border: '1px solid black',padding: '5px', borderRadius: '4px', marginBottom: '50px',}}>
                 {/* User Details */}
-                <Typography>Email: {email}</Typography>
+                <Typography>Email: {userEmail}</Typography>
                 <Box name="penNameBox" sx={{ display: 'flex', alignItems: 'center' }}>
                     <Typography sx={{ marginRight: '10px' }}>Pen Name: {penName}</Typography>
                     <MUI.Button  variant="contained" size="small" onClick={handleOpen}>Edit</MUI.Button>
