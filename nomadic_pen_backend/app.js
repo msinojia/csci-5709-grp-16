@@ -4,6 +4,7 @@ const cors = require("cors");
 const connectDB = require("./db");
 const postRoutes = require("./routes/posts");
 const scheduledPostRoutes = require("./routes/scheduledPosts");
+const articleRoutes = require('./routes/articleListRoutes');
 const cron = require("./utils/cron");
 const travelGuideRoutes = require("./routes/travelGuideRoutes");
 const usersRoutes = require("./routes/users");
@@ -18,6 +19,7 @@ connectDB();
 // Define API routes
 app.use("/posts", postRoutes);
 app.use("/scheduled-posts", scheduledPostRoutes);
+app.use("/fetchAllArticles", articleRoutes);
 app.use("/nomadic-pen", travelGuideRoutes);
 app.use("/user", usersRoutes);
 
