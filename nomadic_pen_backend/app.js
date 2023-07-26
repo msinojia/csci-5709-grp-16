@@ -5,7 +5,8 @@ const connectDB = require("./db");
 const postRoutes = require("./routes/posts");
 const scheduledPostRoutes = require("./routes/scheduledPosts");
 const cron = require("./utils/cron");
-const travelGuideRoutes = require("./routes/travelGuideRoutes")
+const travelGuideRoutes = require("./routes/travelGuideRoutes");
+const usersRoutes = require("./routes/users");
 
 const app = express();
 app.use(express.json({ limit: "10mb" }));
@@ -17,7 +18,8 @@ connectDB();
 // Define API routes
 app.use("/posts", postRoutes);
 app.use("/scheduled-posts", scheduledPostRoutes);
-app.use("/nomadic-pen", travelGuideRoutes)
+app.use("/nomadic-pen", travelGuideRoutes);
+app.use("/user", usersRoutes);
 
 // Start the server
 const port = 8000;
