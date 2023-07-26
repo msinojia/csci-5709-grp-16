@@ -146,7 +146,7 @@ const Reset = () => {
         mx: "auto",
         my: 4,
       }}
-    
+      className="author-card"
     >
       <Typography variant="h4" gutterBottom>
         Reset Your Password

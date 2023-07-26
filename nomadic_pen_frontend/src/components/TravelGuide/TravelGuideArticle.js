@@ -39,7 +39,7 @@ const TravelGuideArticle = () => {
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css"></link>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-            <div className='row'>
+            <div className='row author-card'>
                 <div className='col-md-12'>
                     <div className='col-md-10'>
                         <div>

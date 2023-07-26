@@ -5,6 +5,8 @@ body{
   background-image: url('../Images/slide1.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
 }
 
 

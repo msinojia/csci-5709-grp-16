@@ -129,8 +129,10 @@ const CreateAccount = () => {
         
         mx: "auto",
         my: 4,
+        width: "70%",
       }}
       onSubmit={handleSubmit}
+      className="author-card"
     >
       <Container >
       <Grid container spacing={3} direction="row-reverse">

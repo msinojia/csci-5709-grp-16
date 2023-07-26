@@ -118,6 +118,7 @@ const LoginForm = () => {
         marginTop: "60px"
       }}
       onSubmit={handleSubmit}
+      className="author-card"
     >
       <img src={image} alt='loginImage' width="150" height="150" />
       <TextField

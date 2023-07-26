@@ -40,20 +40,20 @@ function landing() {
 }
 
 function contact() {
-    window.location.href = "./contact";
+    window.location.href = "/contact";
 }
 
 function faq() {
-    window.location.href = "./faq";
+    window.location.href = "/faq";
 }
 
 function profile() {
-    window.location.href = "./profile";
+    window.location.href = "/profile";
 }
 
 function userLogin()
 {
-    window.location.href="./login";
+    window.location.href="/login";
 }
 
 const Header = () => {
