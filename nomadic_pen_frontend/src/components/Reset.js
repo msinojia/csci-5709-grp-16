@@ -58,13 +58,17 @@ const Reset = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-console.log("clicked");
-    // Check if the verification code is valid before making the API call
-   if(verificationCode!==JSON.parse(resetCode).code)
+
+   if(newPassword==="")
+   setIsPasswordValid(false);
+   else if(confirmPassword==="")
+   setIsConfirmationValid(false);
+   else if(verificationCode!==JSON.parse(resetCode).code)
    {
     setCodeErrorMsg('Invalid Verification Code');
     setIsVerificationCodeValid(false);
    }
+   
    else{
     try {
       console.log(JSON.stringify({

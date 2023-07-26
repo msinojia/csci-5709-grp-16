@@ -68,7 +68,9 @@ const CreateAccount = () => {
       }
       else if(response.status === 400)
       {
-        setEmailErrorMessage("Email already Registered");
+        const errorResponse = await response.json();
+        const errorMessage = errorResponse.error;
+        setEmailErrorMessage(errorMessage);
         setIsEmailValid(false);
       }
 

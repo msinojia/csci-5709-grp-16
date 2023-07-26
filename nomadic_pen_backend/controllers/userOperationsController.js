@@ -23,7 +23,11 @@ exports.addUser = async (req, res) => {
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ error: 'Email already exists' });
+      return res.status(400).json({ error: 'Email already registered' });
+    }
+    const existingPenName = await User.findOne({ penName });
+    if (existingPenName) {
+      return res.status(400).json({ error: 'Pen Name already Taken' });
     }
 
 
