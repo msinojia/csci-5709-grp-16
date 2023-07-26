@@ -1,3 +1,4 @@
+// Author: Pakshal Shah
 import React, { useState } from 'react';
 import { Paper, Box, Typography } from '@mui/material';
 import '../styles/FAQ.css';

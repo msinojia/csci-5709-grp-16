@@ -1,4 +1,6 @@
-// backend/controllers/subscriptionController.js
+// Author: Pakshal Shah
+
+// backend/controllers/subscriptionConts
 const subscribeUser = (req, res) => {
     const { email } = req.body;
   
