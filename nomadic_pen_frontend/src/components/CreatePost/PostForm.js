@@ -144,7 +144,7 @@ const PostForm = () => {
   const createPost = async (scheduledDateTime = null) => {
     let { formValid, newErrors } = isFormValid();
     if (formValid) {
-      const authorId = localStorage.getItem("authorId");
+      const authorId = localStorage.getItem("email");
 
       try {
         let endpoint = "/posts";
