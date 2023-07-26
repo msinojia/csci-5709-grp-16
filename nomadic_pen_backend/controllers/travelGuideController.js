@@ -38,6 +38,17 @@ const fetchFeatureDurations = async (req, res) => {
     }
 }
 
+const fetchTravelGuideArticle = async (req, res) => {
+    const {id} = req.params;
+    try{
+        const articles = db.collection("articles");
+        const featuredArticles = await articles.find({article_id:id.toString()}).toArray();
+        res.send(featuredArticles)
+    }catch (error) {
+        console.error(error);
+    }
+}
+
 const closeDbConnection = async () => {
     try {
         await client.close();
@@ -46,4 +57,4 @@ const closeDbConnection = async () => {
     }
 }
 
-module.exports = {fetchTravelGuidePreviews, fetchFeatureCities, fetchFeatureDurations, closeDbConnection};
+module.exports = {fetchTravelGuidePreviews, fetchFeatureCities, fetchFeatureDurations, closeDbConnection, fetchTravelGuideArticle};
