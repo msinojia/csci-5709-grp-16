@@ -1,10 +1,10 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
 
 const connectDB = require("./db");
 const postRoutes = require("./routes/posts");
 const scheduledPostRoutes = require("./routes/scheduledPosts");
+const cron = require("./utils/cron");
 const travelGuideRoutes = require("./routes/travelGuideRoutes");
 const usersRoutes = require("./routes/users");
 
@@ -26,3 +26,6 @@ const port = 8000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+// Start the cron job
+cron.start();

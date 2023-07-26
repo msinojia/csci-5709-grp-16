@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   TextField,
   Button,
@@ -9,6 +10,11 @@ import {
   Menu,
   MenuItem,
   Paper,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import { ArrowDropDown as ArrowDropDownIcon } from "@mui/icons-material";
 import axios from "axios";
@@ -29,12 +35,15 @@ const PostForm = () => {
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
+  const [scheduleConfirmOpen, setScheduleConfirmOpen] = useState(false);
 
   const [errors, setErrors] = useState({
     title: false,
     featuredImage: false,
     content: false,
   });
+
+  const navigate = useNavigate();
 
   const handleTagInput = (e) => {
     if (e.key === " ") {
@@ -88,10 +97,19 @@ const PostForm = () => {
     }
   };
 
-  const handleSchedule = (selectedDate) => {
-    // Handle the scheduled post logic here
-    console.log("Scheduled date:", selectedDate);
+  const handleSchedule = async (selectedDate) => {
     setIsScheduleOpen(false);
+    await createPost(selectedDate);
+  };
+
+  const handleScheduleConfirmClose = async () => {
+    setScheduleConfirmOpen(false);
+    navigate("/posts/following");
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await createPost();
   };
 
   const isFormValid = () => {
@@ -123,13 +141,31 @@ const PostForm = () => {
     return { formValid, newErrors };
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const createPost = async (scheduledDateTime = null) => {
     let { formValid, newErrors } = isFormValid();
     if (formValid) {
-      // Handle form submission and post creation
+      const authorId = localStorage.getItem("authorId");
+
       try {
-        const response = await createPost();
+        let endpoint = "/posts";
+
+        const postData = {
+          title,
+          featuredImage: selectedFile,
+          content: editorHtmlValue,
+          tags,
+          authorId,
+        };
+
+        if (scheduledDateTime) {
+          postData.scheduledDateTime = scheduledDateTime;
+          endpoint = "/scheduled-posts";
+        }
+
+        const response = await axios.post(
+          "http://0.0.0.0:8000" + endpoint,
+          postData
+        );
 
         if (response && response.data) {
           console.log("Post created:", response.data);
@@ -140,6 +176,12 @@ const PostForm = () => {
           setEditorHtmlValue("");
           setTags([]);
           setTagInput("");
+
+          if (!scheduledDateTime) {
+            navigate("/posts/" + response.data.data._id);
+          } else {
+            setScheduleConfirmOpen(true);
+          }
         } else {
           console.log("Error creating post:", response);
         }
@@ -149,15 +191,6 @@ const PostForm = () => {
     } else {
       setErrors(newErrors);
     }
-  };
-
-  const createPost = async () => {
-    return await axios.post("http://localhost:8000/posts", {
-      title,
-      featuredImage: selectedFile,
-      content: editorHtmlValue,
-      tags,
-    });
   };
 
   return (
@@ -287,6 +320,28 @@ const PostForm = () => {
             onClose={handleScheduleClose}
             onSchedule={handleSchedule}
           />
+          <Dialog
+            open={scheduleConfirmOpen}
+            onClose={handleScheduleConfirmClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">Post Scheduled</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Your blog post has been scheduled successfully!
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={handleScheduleConfirmClose}
+                color="primary"
+                autoFocus
+              >
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
         </form>
       </Paper>
     </Box>
