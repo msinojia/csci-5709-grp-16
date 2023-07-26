@@ -1,3 +1,5 @@
+/* Author: Sreejith Nair */
+
 import {Box, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography} from "@mui/material";
 import * as MUI from "@mui/material";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -5,6 +7,8 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import React, {useState} from "react";
 import EditPenNameDialog from "./EditPenNameDialog";
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 const UserDetailsBox = ({penName,setPenName, userEmail, setUserEmail}) => {
     const [open, setOpen] = useState(false);
@@ -12,7 +16,7 @@ const UserDetailsBox = ({penName,setPenName, userEmail, setUserEmail}) => {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
-    const [currentPassword, setCurrentPassword] = useState('password@123');
+    const navigate = useNavigate();
 
     const handleOpen = () => {
         setOpen(true);
@@ -23,7 +27,7 @@ const UserDetailsBox = ({penName,setPenName, userEmail, setUserEmail}) => {
     };
 
     const handleManageSubscription = () => {
-        // Will use this in future
+        navigate('/subscribe');
     };
 
     const handleOpenPasswordChange = () => {
@@ -41,15 +45,27 @@ const UserDetailsBox = ({penName,setPenName, userEmail, setUserEmail}) => {
     };
 
     const handleChangePassword = () => {
-        if (oldPassword === currentPassword){
             if (newPassword !== oldPassword){
                 if(newPassword === confirmNewPassword){
                     const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[a-zA-Z]).{5,}$/;
                     if (passwordRegex.test(newPassword)) {
-                        setCurrentPassword(newPassword);
-                        alert("Password Successfully Updated. Redirecting to Login Page");
-                        handleClosePasswordChange();
-                        clearPasswordFields();
+                        axios
+                            .post("http://nomadic-pen.onrender.com/profile/changePassword", {
+                                userEmail,
+                                oldPassword,
+                                newPassword,
+                            })
+                            .then((response) => {
+                                if (response.status === 200) {
+                                    alert("Password Successfully Updated. Redirecting to Login Page");
+                                    handleClosePasswordChange();
+                                    clearPasswordFields();
+                                }
+                            })
+                            .catch((error) => {
+                                alert(error.response.data.error);
+                                console.error("Error updating password:", error);
+                            });
                     }else {
                         alert("New password should be at least 5 characters long with one special character and one number.");
                         clearPasswordFields();
@@ -62,10 +78,6 @@ const UserDetailsBox = ({penName,setPenName, userEmail, setUserEmail}) => {
                 alert("New password is same as old password");
                 clearPasswordFields();
             }
-        }else {
-            alert("Current Password is incorrect");
-            clearPasswordFields();
-        }
     };
 
     /* Mock data*/
@@ -114,7 +126,7 @@ const UserDetailsBox = ({penName,setPenName, userEmail, setUserEmail}) => {
                     </span>
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <MUI.Button variant="contained" onClick={handleManageSubscription} disabled>Manage Subscription</MUI.Button>
+                    <MUI.Button variant="contained" onClick={handleManageSubscription}>Manage Subscription</MUI.Button>
                     <MUI.Button variant="contained" onClick={handleOpenPasswordChange}>Change Password</MUI.Button>
                 </Box>
                 <Dialog open={openPasswordChange} onClose={handleClosePasswordChange}>

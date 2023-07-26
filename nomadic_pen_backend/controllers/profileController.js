@@ -1,5 +1,7 @@
+/* Author: Sreejith Nair */
 const User = require('../models/user');
 const Post = require("../models/Post");
+const bcrypt = require('bcryptjs');
 
 exports.uploadProfilePicture = async (req, res) => {
     try {
@@ -73,5 +75,61 @@ exports.getUserProfileDetails = async (req, res) => {
         return res.status(200).json(userProfile);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching user profile details', error: error.message });
+    }
+};
+
+// Controller function to update the penName in the user collection
+exports.updatePenName = async (req, res) => {
+    const { email } = req.params;
+    const { newPenName } = req.body;
+
+    try {
+        // Check if the newPenName already exists in the database
+        console.log('Checking for duplicate pen names. new penname:',newPenName);
+        const existingUser = await User.findOne({ penName: newPenName });
+        if (existingUser) {
+            // If the new penName already exists, return the response with isPenNameTaken set to true
+            console.log('This pen name is duplicate.');
+            return res.status(200).json({ isPenNameTaken: true });
+        }
+
+        // If the new penName is not taken, update the penName in the database for the user with userEmail
+        await User.updateOne({ email: email }, { penName: newPenName });
+        return res.status(200).json({ isPenNameTaken: false });
+    } catch (error) {
+        console.error('Error updating penName:', error);
+        return res.status(500).json({ error: 'Error updating penName' });
+    }
+};
+
+exports.updateUserPassword = async (req, res) => {
+    const { userEmail, oldPassword, newPassword } = req.body;
+    try {
+        console.log('Validating password change');
+        // Find the user in the database
+        const user = await User.findOne({ email: userEmail });
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Check if the old password matches the hashed password in the database
+        const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
+        if (!isPasswordValid) {
+            console.log('Current Password is incorrect');
+            return res.status(400).json({ error: "Current Password entered is incorrect" });
+        }
+
+        // Hash the new password before saving it to the database
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+        // Update the user's password with the new hashed password
+        user.password = hashedNewPassword;
+        await user.save();
+        console.log('Password is successfully updated');
+        res.status(200).json({ message: "Password updated successfully" });
+    } catch (error) {
+        console.error("Error updating password:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
 };

@@ -1,3 +1,4 @@
+/* Author: Sreejith Nair */
 const Post = require("../models/Post");
 
 // Controller function to fetch all articles
