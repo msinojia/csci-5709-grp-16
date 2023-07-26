@@ -81,7 +81,7 @@ const ProfilePage = () => {
 
 
     return (
-        <div>
+        <div style={{ backgroundColor: 'white'}}>
             <Box name="mainBox" sx={{display: 'flex',marginTop: '8px' }}>
                 <Grid container spacing={2} sx={{ gap: 1 }}>
                     <Grid name="grid1" item xs={12} sm={2} md={2} style={{ display: 'inline-block', justifyContent: 'center', maxWidth: '100%', width: '350px' }}>
