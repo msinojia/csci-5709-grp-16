@@ -13,6 +13,9 @@ import TravelGuideArticle from "./components/TravelGuide/TravelGuideArticle";
 import Login from "./components/Login";
 import CreateAccount from "./components/CreateAccount";
 import Reset from "./components/Reset";
+import SubscriptionPage from './components/Subscription/SubscriptionPage';
+import ManageSubscriptionPage from './components/Subscription/ManageSubscriptionPage';
+import PaymentPage from './components/Subscription/PaymentPage';
 
 function App() {
   return (
@@ -31,6 +34,9 @@ function App() {
             <Route path='reset' element={<Reset/>} />
             <Route exact path="/travel-guide" element={<TravelGuide/>} />
             <Route exact path="/travel-guide/article/:id" element={<TravelGuideArticle/>} />
+            <Route path="/subscribe" element={<SubscriptionPage />} />
+            <Route path="/manage-subscription" element={<ManageSubscriptionPage />} />
+            <Route path="/payment" element={<PaymentPage />} />
             {/*<Route exact path="/travel-guide/blog" element={<TravelGuideBlog/>} />DO NOT REMOVE */}
           </Routes>
         </BrowserRouter>
