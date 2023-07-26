@@ -8,7 +8,7 @@ const EditPenNameDialog = ({ penName,setPenName,open,setOpen,handleClose}) => {
     const [isPenNameTaken, setIsPenNameTaken] = useState(false);
     const handleUpdatePenName = () => {
         const userEmail = localStorage.getItem("email");
-        axios.post(`http://nomadic-pen.onrender.com/profile/updatePenName/${userEmail}`, { newPenName })
+        axios.post(`https://nomadic-pen.onrender.com/profile/updatePenName/${userEmail}`, { newPenName })
             .then((response) => {
                 if (response.status === 200) {
                     console.log('penname response:',response.data);
