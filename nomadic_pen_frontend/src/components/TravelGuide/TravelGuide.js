@@ -41,7 +41,7 @@ const TravelGuide = () => {
     useEffect(() => {
         const fetchBlogData = async () => {
             try {
-                const blogDataResponse = await axios.get('http://nomadic-pen.onrender.com/nomadic-pen/travel-guide');
+                const blogDataResponse = await axios.get('https://nomadic-pen.onrender.com/nomadic-pen/travel-guide');
                 const responseData = blogDataResponse.data;
                 const extractedArticles = responseData.map((article) => {
                     const articleTags = article.article_tags;
@@ -70,7 +70,7 @@ const TravelGuide = () => {
 
         const fetchFeatureCities = async () => {
             try{
-                const fetchQueryResponse = await axios.get('http://nomadic-pen.onrender.com/nomadic-pen/travel-guide/fetch-feature-cities');
+                const fetchQueryResponse = await axios.get('https://nomadic-pen.onrender.com/nomadic-pen/travel-guide/fetch-feature-cities');
                 const fetchResponseData = fetchQueryResponse.data;
                 setFeatureCities(fetchResponseData['cities']);
             }catch (error) {
@@ -80,7 +80,7 @@ const TravelGuide = () => {
 
         const fetchFeatureDurations = async () => {
             try{
-                const fetchQueryResponse = await axios.get('http://nomadic-pen.onrender.com/nomadic-pen/travel-guide/fetch-feature-durations');
+                const fetchQueryResponse = await axios.get('https://nomadic-pen.onrender.com/nomadic-pen/travel-guide/fetch-feature-durations');
                 const fetchResponseData = fetchQueryResponse.data;
                 setFeatureDuration(fetchResponseData['durations']);
             }catch (error) {

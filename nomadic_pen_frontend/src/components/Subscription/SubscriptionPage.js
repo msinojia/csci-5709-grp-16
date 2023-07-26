@@ -17,7 +17,7 @@ const SubscriptionPage = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://nomadic-pen.onrender.com/api/subscriptions', {
+      const response = await fetch('https://nomadic-pen.onrender.com/api/subscriptions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

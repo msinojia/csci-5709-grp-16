@@ -13,7 +13,7 @@ const ArticleBox = () => {
 
     useEffect(() => {
         const email = localStorage.getItem("email");
-        axios.get(`http://nomadic-pen.onrender.com/fetchAllArticles/${email}`)
+        axios.get(`https://nomadic-pen.onrender.com/fetchAllArticles/${email}`)
             .then((response) => {
                 setArticles(response.data);
             })
