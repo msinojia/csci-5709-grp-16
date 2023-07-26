@@ -21,6 +21,14 @@ const scheduledPostSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  authorId: {
+    type: String,
+    required: true,
+  },
 });
 
 const ScheduledPost = mongoose.model("ScheduledPost", scheduledPostSchema);
