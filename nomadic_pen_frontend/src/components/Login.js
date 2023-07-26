@@ -40,6 +40,7 @@ const LoginForm = () => {
         const data = await response.json();
         // Save the bearer token in localStorage
         localStorage.setItem("bearerToken", data.bearerToken);
+        localStorage.setItem("email", data.userId);
         navigate('/');
       } else {
         
