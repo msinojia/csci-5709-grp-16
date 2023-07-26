@@ -2,9 +2,6 @@
 
 import {Box, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography} from "@mui/material";
 import * as MUI from "@mui/material";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
 import React, {useState} from "react";
 import EditPenNameDialog from "./EditPenNameDialog";
 import { useNavigate } from 'react-router-dom';
