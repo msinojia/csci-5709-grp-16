@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   TextField,
   Button,
@@ -35,6 +36,8 @@ const PostForm = () => {
     featuredImage: false,
     content: false,
   });
+
+  const navigate = useNavigate();
 
   const handleTagInput = (e) => {
     if (e.key === " ") {
@@ -162,6 +165,12 @@ const PostForm = () => {
           setEditorHtmlValue("");
           setTags([]);
           setTagInput("");
+          
+          if (scheduledDateTime) {
+            navigate("/posts/" + response.data.data._id);
+          } else {
+            navigate("/posts/following");
+          }
         } else {
           console.log("Error creating post:", response);
         }
