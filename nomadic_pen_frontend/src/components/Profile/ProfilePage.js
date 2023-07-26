@@ -39,7 +39,7 @@ const ProfilePage = () => {
                                 </Box>
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                     <input type="file" accept="image/*" onChange={handleFileInputChange} ref={fileInputRef} style={{ display: 'none' }}/>
-                                    <MUI.Button className="my-button" style={{ color: 'white', backgroundColor: 'black'}} size="small" onClick={handleProfilePictureChange}>Change Picture</MUI.Button>
+                                    <MUI.Button variant="contained" size="small" onClick={handleProfilePictureChange}>Change Picture</MUI.Button>
                                 </div>
                             </Box>
                             <UserDetailsBox penName={penName} setPenName={setPenName}/>

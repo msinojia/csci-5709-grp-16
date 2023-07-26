@@ -82,7 +82,7 @@ const UserDetailsBox = ({penName,setPenName}) => {
                 <Typography>Email: {email}</Typography>
                 <Box name="penNameBox" sx={{ display: 'flex', alignItems: 'center' }}>
                     <Typography sx={{ marginRight: '10px' }}>Pen Name: {penName}</Typography>
-                    <MUI.Button  className="my-button" style={{ color: 'white', backgroundColor: 'black', padding: '0px 4px' }} size="small" onClick={handleOpen}>Edit</MUI.Button>
+                    <MUI.Button  variant="contained" size="small" onClick={handleOpen}>Edit</MUI.Button>
                 </Box>
                 <Typography>Hobbies: Sketching, Photography, Travelling</Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -115,11 +115,11 @@ const UserDetailsBox = ({penName,setPenName}) => {
                     </span>
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <MUI.Button style={{ color: 'grey', backgroundColor: 'lightgrey' }} onClick={handleManageSubscription} disabled>Manage Subscription</MUI.Button>
-                    <MUI.Button className="my-button" style={{ color: 'white', backgroundColor: 'black' }} onClick={handleOpenPasswordChange}>Change Password</MUI.Button>
+                    <MUI.Button variant="contained" onClick={handleManageSubscription} disabled>Manage Subscription</MUI.Button>
+                    <MUI.Button variant="contained" onClick={handleOpenPasswordChange}>Change Password</MUI.Button>
                 </Box>
                 <Dialog open={openPasswordChange} onClose={handleClosePasswordChange}>
-                    <DialogTitle sx={{padding: '16px', fontSize: '18px', backgroundColor: 'black', color: 'white' }}>Password Change</DialogTitle>
+                    <DialogTitle sx={{padding: '16px', fontSize: '18px'}}>Password Change</DialogTitle>
                     <DialogContent className="password-change-form">
                         <TextField
                             label="Pen Name"
@@ -146,8 +146,8 @@ const UserDetailsBox = ({penName,setPenName}) => {
                         />
                     </DialogContent>
                     <DialogActions>
-                        <MUI.Button className="my-button" style={{ color: 'white', backgroundColor: 'black' }} onClick={handleClosePasswordChange}>Cancel</MUI.Button>
-                        <MUI.Button className="my-button" style={{ color: 'white', backgroundColor: 'black' }} onClick={handleChangePassword}>Confirm</MUI.Button>
+                        <MUI.Button variant="contained" onClick={handleClosePasswordChange}>Cancel</MUI.Button>
+                        <MUI.Button variant="contained"onClick={handleChangePassword}>Confirm</MUI.Button>
                     </DialogActions>
                 </Dialog>
             </Box>

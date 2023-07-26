@@ -19,7 +19,7 @@ const EditPenNameDialog = ({ penName,setPenName,open,setOpen,handleClose}) => {
     return (
         <>
             <Dialog open={open} onClose={handleClose} >
-                <DialogTitle sx={{padding: '16px', fontSize: '18px', backgroundColor: 'black', color: 'white' }}>Update Pen Name</DialogTitle>
+                <DialogTitle sx={{padding: '16px', fontSize: '18px' }}>Update Pen Name</DialogTitle>
                 <DialogContent className="password-change-form" sx={{ padding: '16px', fontSize: '14px' }}>
                     <TextField
                         label="Current Pen Name"
@@ -34,8 +34,8 @@ const EditPenNameDialog = ({ penName,setPenName,open,setOpen,handleClose}) => {
                     {isPenNameTaken && <Typography variant="caption" color="error">Pen name is already taken.</Typography>}
                 </DialogContent>
                 <DialogActions>
-                    <MUI.Button className="my-button" style={{ color: 'white', backgroundColor: 'black' }} onClick={handleClose}>Cancel</MUI.Button>
-                    <MUI.Button className="my-button" style={{ color: 'white', backgroundColor: 'black' }} onClick={handleUpdatePenName}>Update</MUI.Button>
+                    <MUI.Button variant="contained" onClick={handleClose}>Cancel</MUI.Button>
+                    <MUI.Button variant="contained" onClick={handleUpdatePenName}>Update</MUI.Button>
                 </DialogActions>
             </Dialog>
         </>
