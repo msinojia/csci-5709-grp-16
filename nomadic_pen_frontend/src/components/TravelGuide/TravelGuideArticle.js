@@ -14,7 +14,7 @@ const TravelGuideArticle = () => {
     useEffect(() => {
         const fetchArticle = async () => {
             try {
-                const articleDataResponse = await axios.get(`http://localhost:8000/nomadic-pen/travel-guide/article/${state}`);
+                const articleDataResponse = await axios.get(`http://nomadic-pen.onrender.com/nomadic-pen/travel-guide/article/${state}`);
                 const articleData = articleDataResponse.data;
                 articleData.map((article) => {
                     setTitle(article["article_title"]);

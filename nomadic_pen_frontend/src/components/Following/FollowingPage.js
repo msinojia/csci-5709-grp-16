@@ -12,7 +12,7 @@ const FollowingPage = () => {
   // Function to fetch the posts from the server
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/posts');
+      const response = await axios.get('http://nomadic-pen.onrender.com/posts');
       setPosts(response.data.data); 
     } catch (error) {
       console.error('Error fetching posts:', error);

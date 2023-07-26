@@ -52,7 +52,7 @@ const CreateAccount = () => {
         enrollmentDate: enrollDate
       });
       console.log(body);
-      const response = await fetch("http://localhost:8000/user", {
+      const response = await fetch("http://nomadic-pen.onrender.com/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

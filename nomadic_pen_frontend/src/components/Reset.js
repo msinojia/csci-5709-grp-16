@@ -76,7 +76,7 @@ const Reset = () => {
         email: resetEmail,
         password: newPassword,
       }));
-      const response = await fetch("http://localhost:8000/user/updatePassword", {
+      const response = await fetch("http://nomadic-pen.onrender.com/user/updatePassword", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -111,7 +111,7 @@ const Reset = () => {
     
     try {
 
-      const response = await fetch("http://localhost:8000/user/forgotPassword", {
+      const response = await fetch("http://nomadic-pen.onrender.com/user/forgotPassword", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

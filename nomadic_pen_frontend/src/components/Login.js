@@ -25,7 +25,7 @@ const LoginForm = () => {
 
     // Make the API call
     try {
-      const response = await fetch("http://localhost:8000/user/login", {
+      const response = await fetch("http://nomadic-pen.onrender.com/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +63,7 @@ const LoginForm = () => {
       if(!isEmailValid || email==="")
       setIsEmailValid(false);
       else{
-      const response = await fetch("http://localhost:8000/user/forgotPassword", {
+      const response = await fetch("http://nomadic-pen.onrender.com/user/forgotPassword", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
