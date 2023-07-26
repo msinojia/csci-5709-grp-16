@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const User = require("../models/user");
 
 /* By Meet Sinojia */
 exports.createPost = async (req, res) => {
@@ -32,14 +33,17 @@ exports.fetchPosts = async (req, res) => {
   try {
     const allPosts = await Post.find({});
 
+    const user = await User.findOne({ email });
+    const penName = user.penName;
+
     // Send the fetched posts in the specified format
-    const formattedPosts = allPosts.map(({ _id, title, featuredImage, content, tags, authorId, createdAt }) => ({
+    const formattedPosts = allPosts.map(({ _id, title, featuredImage, content, tags, createdAt }) => ({
       _id,
       title,
       featuredImage,
       content,
       tags,
-      authorId,
+      penName,
       createdAt
     }));
 
@@ -59,6 +63,8 @@ exports.fetchPostById = async (req, res) => {
     // // Fetch the document with the provided ID
     const post = await Post.findById(id).exec();
  
+ const user = await User.findOne({ email });
+    const penName = user.penName;
 
     if (!post) {
       return res.status(404).json({ error: 'Post not found' });
@@ -71,7 +77,7 @@ exports.fetchPostById = async (req, res) => {
       featuredImage: post.featuredImage,
       content: post.content,
       tags: post.tags,
-      authorId: post.authorId,
+      authorId: penName,
       createdAt: post.createdAt
     };
 
