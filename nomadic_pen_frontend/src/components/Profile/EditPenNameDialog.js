@@ -7,6 +7,11 @@ const EditPenNameDialog = ({ penName,setPenName,open,setOpen,handleClose}) => {
     const [newPenName, setNewPenName] = useState('');
     const [isPenNameTaken, setIsPenNameTaken] = useState(false);
     const handleUpdatePenName = () => {
+        if (!newPenName || newPenName.trim() === '') {
+            alert("Pen name cannot be left blank.");
+            return;
+        }
+
         const userEmail = localStorage.getItem("email");
         axios.post(`https://nomadic-pen.onrender.com/profile/updatePenName/${userEmail}`, { newPenName })
             .then((response) => {
