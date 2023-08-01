@@ -2,15 +2,12 @@
 
 import {Box, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography} from "@mui/material";
 import * as MUI from "@mui/material";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
 import React, {useState} from "react";
 import EditPenNameDialog from "./EditPenNameDialog";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
-const UserDetailsBox = ({penName,setPenName, userEmail, setUserEmail}) => {
+const UserDetailsBox = ({penName,setPenName, userEmail, setUserEmail, dob, setDob, contact, setContact, enrollmentDate, setEnrollmentDate}) => {
     const [open, setOpen] = useState(false);
     const [openPasswordChange, setOpenPasswordChange] = useState(false);
     const [oldPassword, setOldPassword] = useState('');
@@ -60,6 +57,10 @@ const UserDetailsBox = ({penName,setPenName, userEmail, setUserEmail}) => {
                                     alert("Password Successfully Updated. Redirecting to Login Page");
                                     handleClosePasswordChange();
                                     clearPasswordFields();
+                                    // Remove the "email" key from local storage
+                                    localStorage.removeItem("email");
+                                    localStorage.removeItem("bearerToken");
+                                    window.location.href = "/login";
                                 }
                             })
                             .catch((error) => {
@@ -79,12 +80,14 @@ const UserDetailsBox = ({penName,setPenName, userEmail, setUserEmail}) => {
                 clearPasswordFields();
             }
     };
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString(undefined, options);
+    };
 
-    /* Mock data*/
+    /* Mock data since this field is based on subcription table.*/
     const subscriptionStatus = 'Subscribed';
-    const twitterHandle = '@sreejithexample';
-    const instagramHandle = '@sreejithNairexample';
-    const facebookHandle = 'SreejithNairexample';
 
     return(
         <>
@@ -95,20 +98,9 @@ const UserDetailsBox = ({penName,setPenName, userEmail, setUserEmail}) => {
                     <Typography sx={{ marginRight: '10px' }}>Pen Name: {penName}</Typography>
                     <MUI.Button  variant="contained" size="small" onClick={handleOpen}>Edit</MUI.Button>
                 </Box>
-                <Typography>Hobbies: Sketching, Photography, Travelling</Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Typography sx={{ marginRight: '10px' }}> Follow me  </Typography>
-                    <a href={`https://twitter.com/${twitterHandle}`} target="_blank" rel="noopener noreferrer">
-                        <TwitterIcon sx={{ color: '#1DA1F2' }} />
-                    </a>
-                    <a href={`https://www.instagram.com/${instagramHandle}`} target="_blank" rel="noopener noreferrer">
-                        <InstagramIcon sx={{ color: '#E4405F' }} />
-                    </a>
-                    <a href={`https://www.facebook.com/${facebookHandle}`} target="_blank" rel="noopener noreferrer">
-                        <FacebookIcon sx={{ color: '#4267B2' }} />
-                    </a>
-                </Box>
-                <Typography>Visit my website: <a href="https://www.example.com">https://www.example.com</a></Typography>
+                <Typography>Date of birth: {formatDate(dob)}</Typography>
+                <Typography>Contact: {contact}</Typography>
+                <Typography>Enrollment Date: {new Date(enrollmentDate).toLocaleString()}</Typography>
                 <EditPenNameDialog penName={penName} setPenName={setPenName} open={open} setOpen={setOpen} handleClose={handleClose}/>
                 <Typography style={{ marginBottom: '10px' }}>
                     Subscription Status:{' '}

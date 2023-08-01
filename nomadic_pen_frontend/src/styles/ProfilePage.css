@@ -1,6 +1,7 @@
+/* Author: Sreejith Nair */
 .profile-picture {
-    width: 200px; /* Adjust the desired width */
-    height: 200px; /* Adjust the desired height */
+    width: 200px;
+    height: 200px;
     overflow: hidden;
     border-radius: 10px;
 }
@@ -13,8 +14,8 @@
 }
 
 .profile-picture-container {
-    width: 200px; /* Adjust the desired width */
-    height: 200px; /* Adjust the desired height */
+    width: 200px;
+    height: 200px;
 }
 
 .password-change-form {
