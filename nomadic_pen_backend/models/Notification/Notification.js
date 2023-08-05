@@ -1,7 +1,7 @@
 /* Author: Meet Sinojia */
 
 const mongoose = require("mongoose");
-const notificationKinds = require("../utils/notificationKinds");
+const notificationKinds = require("../../utils/notificationKinds");
 
 const notificationSchema = new mongoose.Schema(
   {

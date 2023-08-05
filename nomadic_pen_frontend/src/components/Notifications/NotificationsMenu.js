@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Menu, MenuItem, IconButton, Badge } from "@mui/material";
+import { Menu, MenuItem, IconButton, Badge, Button, List } from "@mui/material";
 import { Notifications as NotificationsIcon } from "@mui/icons-material";
-import axios from "axios";
+
 import NotificationItem from "./NotificationItem";
+import axios from "axios";
 
 const NotificationsMenu = () => {
   const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
@@ -10,10 +11,13 @@ const NotificationsMenu = () => {
   const [notifications, setNotifications] = useState([]);
   const [newNotifications, setNewNotifications] = useState(3);
 
+  const backendUrl = "http://0.0.0.0:8000";
+  const userId = localStorage.getItem("email");
+
   const fetchNotifications = async () => {
     try {
       const response = await axios.get(
-        "http://0.0.0.0:8000/notifications?authorId=sreejith.nair@dal.ca"
+        `${backendUrl}/notifications?userId=${userId}`
       );
 
       setNotifications(response.data.notifications);
@@ -35,6 +39,11 @@ const NotificationsMenu = () => {
     setNotificationsAnchorEl(null);
   };
 
+  const handleMarkAllAsRead = async () => {
+    await axios.put(`${backendUrl}/notifications/mark-all-read`, { userId });
+    window.location.reload();
+  };
+
   useEffect(() => {
     fetchNotifications();
   }, []);
@@ -46,20 +55,37 @@ const NotificationsMenu = () => {
           <NotificationsIcon />
         </Badge>
       </IconButton>
+
+      {/* Notifications Menu */}
       <Menu
         anchorEl={notificationsAnchorEl}
         open={notificationsOpen}
         onClose={handleNotificationsClose}
       >
-        {notifications.map((notification) => (
-          <MenuItem
-            key={notification._id}
-            onClick={handleNotificationsClose}
-            divider
-          >
-            <NotificationItem notification={notification} />
-          </MenuItem>
-        ))}
+        {/* Mark All as Read Button */}
+        <MenuItem onClick={handleMarkAllAsRead}>
+          <Button variant="contained" color="primary" fullWidth>
+            Mark All as Read
+          </Button>
+        </MenuItem>
+
+        {/* List of Notifications */}
+        <List
+          sx={{
+            maxHeight: "50vh",
+            overflowY: "auto",
+          }}
+        >
+          {notifications.map((notification) => (
+            <MenuItem
+              key={notification._id}
+              onClick={handleNotificationsClose}
+              divider
+            >
+              <NotificationItem notification={notification} />
+            </MenuItem>
+          ))}
+        </List>
       </Menu>
     </>
   );

@@ -1,14 +1,14 @@
 /* Author: Meet Sinojia */
 
-const Notification = require("../models/Notification");
-const LikeNotification = require("../models/LikeNotification");
-const CommentNotification = require("../models/CommentNotification");
-const FollowNotification = require("../models/FollowNotification");
+const Notification = require("../models/Notification/Notification");
+const LikeNotification = require("../models/Notification/LikeNotification");
+const CommentNotification = require("../models/Notification/CommentNotification");
+const FollowNotification = require("../models/Notification/FollowNotification");
 const User = require("../models/user");
 
-const getNotifications = async (authorId) => {
+exports.getNotifications = async (userId) => {
   try {
-    const notifications = await Notification.find({ notifiedUser: authorId })
+    const notifications = await Notification.find({ notifiedUser: userId })
       .sort({ createdAt: -1 }) // Sort by createdAt field in descending order (latest first)
       .lean()
       .exec();
@@ -29,7 +29,7 @@ const getNotifications = async (authorId) => {
   }
 };
 
-const addLikeNotification = async (notifiedUser, actionUser, postId) => {
+exports.addLikeNotification = async (notifiedUser, actionUser, postId) => {
   try {
     const newLikeNotification = new LikeNotification({
       notifiedUser,
@@ -45,7 +45,7 @@ const addLikeNotification = async (notifiedUser, actionUser, postId) => {
   }
 };
 
-const addCommentNotification = async (notifiedUser, actionUser, postId) => {
+exports.addCommentNotification = async (notifiedUser, actionUser, postId) => {
   try {
     const newCommentNotification = new CommentNotification({
       notifiedUser,
@@ -61,7 +61,7 @@ const addCommentNotification = async (notifiedUser, actionUser, postId) => {
   }
 };
 
-const addFollowNotification = async (notifiedUser, actionUser) => {
+exports.addFollowNotification = async (notifiedUser, actionUser) => {
   try {
     const newFollowNotification = new FollowNotification({
       notifiedUser,
@@ -76,9 +76,47 @@ const addFollowNotification = async (notifiedUser, actionUser) => {
   }
 };
 
-module.exports = {
-  addLikeNotification,
-  getNotifications,
-  addCommentNotification,
-  addFollowNotification,
+exports.markNotificationAsRead = async (req, res) => {
+  const { notificationId } = req.params;
+
+  try {
+    const notification = await Notification.findByIdAndUpdate(
+      notificationId,
+      { read: true },
+      { new: true }
+    );
+
+    if (!notification) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Notification not found." });
+    }
+
+    res.status(200).json({ success: true, notification });
+  } catch (error) {
+    console.error("Error marking notification as read:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to mark notification as read.",
+    });
+  }
+};
+
+exports.markAllNotificationsAsRead = async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    const updatedNotifications = await Notification.updateMany(
+      { notifiedUser: userId },
+      { read: true }
+    );
+
+    res.status(200).json({ success: true, updatedNotifications });
+  } catch (error) {
+    console.error("Error marking all notifications as read:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to mark all notifications as read.",
+    });
+  }
 };

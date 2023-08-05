@@ -5,11 +5,11 @@ const router = express.Router();
 const notificationController = require("../controllers/notificationController");
 
 router.get("/", async (req, res) => {
-  const { authorId } = req.query;
+  const { userId } = req.query;
 
   try {
     const notifications = await notificationController.getNotifications(
-      authorId
+      userId
     );
     res.json({ success: true, notifications });
   } catch (error) {
@@ -60,5 +60,12 @@ router.post("/follow", async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 });
+
+router.put(
+  "/:notificationId/mark-read",
+  notificationController.markNotificationAsRead
+);
+
+router.put("/mark-all-read", notificationController.markAllNotificationsAsRead);
 
 module.exports = router;

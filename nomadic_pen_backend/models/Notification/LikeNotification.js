@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const Notification = require("./Notification");
-const notificationKinds = require("../utils/notificationKinds");
+const notificationKinds = require("../../utils/notificationKinds");
 
 const likeNotificationSchema = new mongoose.Schema({
   actionUser: {

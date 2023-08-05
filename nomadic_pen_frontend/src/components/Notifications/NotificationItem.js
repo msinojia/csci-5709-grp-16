@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   unread: {
@@ -28,6 +29,8 @@ const NotificationItem = ({ notification }) => {
   const classes = useStyles();
 
   const handleClick = () => {
+    const backendUrl = "http://0.0.0.0:8000";
+    axios.put(`${backendUrl}/notifications/${notification._id}/mark-read`);
     if (
       notification.kind === notificationKinds.LIKE ||
       notification.kind === notificationKinds.COMMENT
@@ -65,11 +68,15 @@ const NotificationItem = ({ notification }) => {
         <ListItemText>
           <Typography
             variant="bolder"
-            sx={{ overflow: "hidden", textOverflow: "ellipsis", maxWidth: "100%", display: "inline-block" }}
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              maxWidth: "100%",
+              display: "inline-block",
+            }}
           >
             {notification.actionUser.firstName}{" "}
-            {notification.actionUser.lastName}{" "}
-            {getNotificationText()}.
+            {notification.actionUser.lastName} {getNotificationText()}.
           </Typography>
         </ListItemText>
       </ListItemButton>
