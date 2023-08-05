@@ -18,11 +18,10 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/like", async (req, res) => {
-  const { notifiedUser, actionUser, postId } = req.body;
+  const { actionUser, postId } = req.body;
   try {
     const newLikeNotification =
       await notificationController.addLikeNotification(
-        notifiedUser,
         actionUser,
         postId
       );
@@ -33,11 +32,10 @@ router.post("/like", async (req, res) => {
 });
 
 router.post("/comment", async (req, res) => {
-  const { notifiedUser, actionUser, postId } = req.body;
+  const { actionUser, postId } = req.body;
   try {
     const newCommentNotification =
       await notificationController.addCommentNotification(
-        notifiedUser,
         actionUser,
         postId
       );

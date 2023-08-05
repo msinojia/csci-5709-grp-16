@@ -5,6 +5,7 @@ const LikeNotification = require("../models/Notification/LikeNotification");
 const CommentNotification = require("../models/Notification/CommentNotification");
 const FollowNotification = require("../models/Notification/FollowNotification");
 const User = require("../models/user");
+const Post = require("../models/Post");
 
 exports.getNotifications = async (userId) => {
   try {
@@ -29,10 +30,16 @@ exports.getNotifications = async (userId) => {
   }
 };
 
-exports.addLikeNotification = async (notifiedUser, actionUser, postId) => {
+exports.addLikeNotification = async (actionUser, postId) => {
   try {
+    const post = await Post.findOne({ _id: postId });
+    if (!post) {
+      throw new Error("Post not found");
+    }
+    const { authorId } = post;
+
     const newLikeNotification = new LikeNotification({
-      notifiedUser,
+      notifiedUser: authorId,
       actionUser,
       postId,
     });
@@ -45,10 +52,16 @@ exports.addLikeNotification = async (notifiedUser, actionUser, postId) => {
   }
 };
 
-exports.addCommentNotification = async (notifiedUser, actionUser, postId) => {
+exports.addCommentNotification = async (actionUser, postId) => {
   try {
+    const post = await Post.findOne({ _id: postId });
+    if (!post) {
+      throw new Error("Post not found");
+    }
+    const { authorId } = post;
+
     const newCommentNotification = new CommentNotification({
-      notifiedUser,
+      notifiedUser: authorId,
       actionUser,
       postId,
     });
