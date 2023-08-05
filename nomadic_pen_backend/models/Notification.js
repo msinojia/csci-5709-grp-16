@@ -15,7 +15,7 @@ const notificationSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
-    authorId: {
+    notifiedUser: {
       type: String,
       required: true,
     },
