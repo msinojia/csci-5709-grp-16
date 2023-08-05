@@ -8,7 +8,9 @@ router.get("/", async (req, res) => {
   const { authorId } = req.query;
 
   try {
-    const notifications = await notificationController.getNotifications(authorId);
+    const notifications = await notificationController.getNotifications(
+      authorId
+    );
     res.json({ success: true, notifications });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -16,15 +18,44 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/like", async (req, res) => {
-  const { likedBy, postId, authorId } = req.body;
+  const { notifiedUser, actionUser, postId } = req.body;
   try {
     const newLikeNotification =
       await notificationController.addLikeNotification(
-        likedBy,
-        postId,
-        authorId
+        notifiedUser,
+        actionUser,
+        postId
       );
     res.json({ success: true, notification: newLikeNotification });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+router.post("/comment", async (req, res) => {
+  const { notifiedUser, actionUser, postId } = req.body;
+  try {
+    const newCommentNotification =
+      await notificationController.addCommentNotification(
+        notifiedUser,
+        actionUser,
+        postId
+      );
+    res.json({ success: true, notification: newCommentNotification });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+router.post("/follow", async (req, res) => {
+  const { notifiedUser, actionUser } = req.body;
+  try {
+    const newFollowNotification =
+      await notificationController.addFollowNotification(
+        notifiedUser,
+        actionUser
+      );
+    res.json({ success: true, notification: newFollowNotification });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }

@@ -2,6 +2,8 @@
 
 const Notification = require("../models/Notification");
 const LikeNotification = require("../models/LikeNotification");
+const CommentNotification = require("../models/CommentNotification");
+const FollowNotification = require("../models/FollowNotification");
 const User = require("../models/user");
 
 const getNotifications = async (authorId) => {
@@ -27,11 +29,11 @@ const getNotifications = async (authorId) => {
   }
 };
 
-const addLikeNotification = async (likedBy, postId, authorId) => {
+const addLikeNotification = async (notifiedUser, actionUser, postId) => {
   try {
     const newLikeNotification = new LikeNotification({
-      notifiedUser: authorId,
-      actionUser: likedBy,
+      notifiedUser,
+      actionUser,
       postId,
     });
 
@@ -43,4 +45,40 @@ const addLikeNotification = async (likedBy, postId, authorId) => {
   }
 };
 
-module.exports = { addLikeNotification, getNotifications };
+const addCommentNotification = async (notifiedUser, actionUser, postId) => {
+  try {
+    const newCommentNotification = new CommentNotification({
+      notifiedUser,
+      actionUser,
+      postId,
+    });
+
+    await newCommentNotification.save();
+
+    return newCommentNotification;
+  } catch (error) {
+    throw new Error("Failed to add comment notification: " + error);
+  }
+};
+
+const addFollowNotification = async (notifiedUser, actionUser) => {
+  try {
+    const newFollowNotification = new FollowNotification({
+      notifiedUser,
+      actionUser,
+    });
+
+    await newFollowNotification.save();
+
+    return newFollowNotification;
+  } catch (error) {
+    throw new Error("Failed to add follow notification: " + error);
+  }
+};
+
+module.exports = {
+  addLikeNotification,
+  getNotifications,
+  addCommentNotification,
+  addFollowNotification,
+};

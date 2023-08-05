@@ -6,22 +6,14 @@ import {
   IconButton,
   Typography,
   Grid,
-  Badge,
-  Menu,
-  MenuItem,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 
-import {
-  Menu as MenuIcon,
-  Notifications as NotificationsIcon,
-} from "@mui/icons-material";
-
-import axios from "axios";
+import { Menu as MenuIcon } from "@mui/icons-material";
 
 import NavigationDrawer from "./NavigationDrawer";
-import NotificationItem from "./Notifications/NotificationItem";
+import NotificationsMenu from "./Notifications/NotificationsMenu";
 
 function landing() {
   if (window.location.pathname !== "/") {
@@ -57,41 +49,9 @@ const Header = () => {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const [notificationsAnchorEl, setIsNotificationsAnchorEl] = useState(null);
-  const notificationsOpen = Boolean(notificationsAnchorEl);
-  const [notifications, setNotifications] = useState([]);
-  const [newNotifications, setNewNotifications] = useState(3);
-
-  const fetchNotifications = async () => {
-    try {
-      const response = await axios.get(
-        "http://0.0.0.0:8000/notifications?authorId=sreejith.nair@dal.ca"
-      );
-
-      setNotifications(response.data.notifications);
-
-      const unreadNotifications = response.data.notifications.filter(
-        (notification) => !notification.read
-      );
-      setNewNotifications(unreadNotifications.length);
-    } catch (error) {
-      console.error("Error fetching notifications:", error);
-    }
-  };
-
-  const handleNotificationsClick = (event) => {
-    setIsNotificationsAnchorEl(event.currentTarget);
-  };
-
-  const handleNotificationsClose = () => {
-    setIsNotificationsAnchorEl(null);
-  };
-
   useEffect(() => {
     const bearerToken = localStorage.getItem("bearerToken");
     setIsAuthenticated(!!bearerToken);
-
-    fetchNotifications();
   }, []);
 
   const handleLogout = () => {
@@ -175,29 +135,7 @@ const Header = () => {
                   </Grid> */}
         </Grid>
 
-        {/* Notification bell icon */}
-        <IconButton color="inherit" onClick={handleNotificationsClick}>
-          <Badge badgeContent={newNotifications} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-
-        {/* Notifications Menu */}
-        <Menu
-          anchorEl={notificationsAnchorEl}
-          open={notificationsOpen}
-          onClose={handleNotificationsClose}
-        >
-          {notifications.map((notification) => (
-            <MenuItem
-              key={notification._id}
-              onClick={handleNotificationsClose}
-              divider
-            >
-              <NotificationItem notification={notification} />
-            </MenuItem>
-          ))}
-        </Menu>
+        {isSmallerScreen && <NotificationsMenu />}
 
         {/* Navigation Options - Visible on larger screens */}
         {!isSmallerScreen && (
@@ -260,6 +198,7 @@ const Header = () => {
                 >
                   Profile
                 </IconButton>
+                <NotificationsMenu />
                 <IconButton
                   color="inherit"
                   onClick={() => {
