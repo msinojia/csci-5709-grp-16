@@ -1,8 +1,12 @@
 /* Author: Meet Sinojia */
 
 const cron = require("node-cron");
+const axios = require("axios");
+
 const ScheduledPost = require("../models/ScheduledPost");
 const Post = require("../models/Post");
+
+const backendUrl = "https://nomadic-pen.onrender.com";
 
 const cronJob = cron.schedule("* * * * *", async () => {
   try {
@@ -25,6 +29,12 @@ const cronJob = cron.schedule("* * * * *", async () => {
 
       await post.save();
       await ScheduledPost.findByIdAndRemove(scheduledPost._id);
+
+      // Send notification
+      const { postId } = post;
+      await axios.post(`${backendUrl}/notifications/scheduled-post`, {
+        postId,
+      });
     }
 
     if (scheduledPosts.length > 0) {

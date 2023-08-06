@@ -4,6 +4,7 @@ const Notification = require("../models/Notification/Notification");
 const LikeNotification = require("../models/Notification/LikeNotification");
 const CommentNotification = require("../models/Notification/CommentNotification");
 const FollowNotification = require("../models/Notification/FollowNotification");
+const ScheduledPostNotification = require("../models/Notification/ScheduledPostNotification");
 const User = require("../models/user");
 const Post = require("../models/Post");
 
@@ -16,7 +17,9 @@ exports.getNotifications = async (userId) => {
 
     // Fetch additional information for each notification
     for (const notification of notifications) {
-      const actionUser = await User.findOne({ email: notification.actionUser })
+      const actionUser = await User.findOne({
+        email: notification.actionUser || notification.notifiedUser,
+      })
         .select("firstName lastName profilePic")
         .lean()
         .exec();
@@ -131,5 +134,26 @@ exports.markAllNotificationsAsRead = async (req, res) => {
       success: false,
       message: "Failed to mark all notifications as read.",
     });
+  }
+};
+
+exports.addScheduledPostNotification = async (postId) => {
+  try {
+    const post = await Post.findOne({ _id: postId });
+    if (!post) {
+      throw new Error("Post not found");
+    }
+    const { authorId } = post;
+
+    const scheduledPostNotification = new ScheduledPostNotification({
+      notifiedUser: authorId,
+      postId,
+    });
+
+    await scheduledPostNotification.save();
+
+    return scheduledPostNotification;
+  } catch (error) {
+    throw new Error("Failed to add scheduled post notification: " + error);
   }
 };

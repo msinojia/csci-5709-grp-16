@@ -23,17 +23,19 @@ const notificationKinds = {
   LIKE: "LIKE",
   COMMENT: "COMMENT",
   FOLLOW: "FOLLOW",
+  SCHEDULED_POST: "SCHEDULED_POST",
 };
 
 const NotificationItem = ({ notification }) => {
   const classes = useStyles();
 
   const handleClick = () => {
-    const backendUrl = "http://0.0.0.0:8000";
+    const backendUrl = "https://nomadic-pen.onrender.com";
     axios.put(`${backendUrl}/notifications/${notification._id}/mark-read`);
     if (
       notification.kind === notificationKinds.LIKE ||
-      notification.kind === notificationKinds.COMMENT
+      notification.kind === notificationKinds.COMMENT ||
+      notification.kind === notificationKinds.SCHEDULED_POST
     ) {
       window.location.href = `/posts/${notification.postId}`;
     }
@@ -42,11 +44,13 @@ const NotificationItem = ({ notification }) => {
   const getNotificationText = () => {
     switch (notification.kind) {
       case notificationKinds.LIKE:
-        return "liked your post";
+        return `${notification.actionUser.firstName} ${notification.actionUser.lastName} liked your post.`;
       case notificationKinds.COMMENT:
-        return "commented on your post";
+        return `${notification.actionUser.firstName} ${notification.actionUser.lastName} commented on your post.`;
       case notificationKinds.FOLLOW:
-        return "followed you";
+        return `${notification.actionUser.firstName} ${notification.actionUser.lastName} followed you.`;
+      case notificationKinds.SCHEDULED_POST:
+        return `Your scheduled post has been published.`;
       default:
         return "";
     }
@@ -65,6 +69,7 @@ const NotificationItem = ({ notification }) => {
             src={notification.actionUser.profilePic}
           ></Avatar>{" "}
         </ListItemAvatar>
+
         <ListItemText>
           <Typography
             variant="bolder"
@@ -75,8 +80,7 @@ const NotificationItem = ({ notification }) => {
               display: "inline-block",
             }}
           >
-            {notification.actionUser.firstName}{" "}
-            {notification.actionUser.lastName} {getNotificationText()}.
+            {getNotificationText()}
           </Typography>
         </ListItemText>
       </ListItemButton>

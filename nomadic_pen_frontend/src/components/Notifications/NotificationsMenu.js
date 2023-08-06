@@ -11,7 +11,7 @@ const NotificationsMenu = () => {
   const [notifications, setNotifications] = useState([]);
   const [newNotifications, setNewNotifications] = useState(3);
 
-  const backendUrl = "http://0.0.0.0:8000";
+  const backendUrl = "https://nomadic-pen.onrender.com";
   const userId = localStorage.getItem("email");
 
   const fetchNotifications = async () => {
