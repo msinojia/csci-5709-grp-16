@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Menu, MenuItem, IconButton, Badge, Button, List } from "@mui/material";
 import { Notifications as NotificationsIcon } from "@mui/icons-material";
+import axios from "axios";
 
 import NotificationItem from "./NotificationItem";
-import axios from "axios";
+import * as constants from "../../constants";
 
 const NotificationsMenu = () => {
   const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
@@ -11,13 +12,12 @@ const NotificationsMenu = () => {
   const [notifications, setNotifications] = useState([]);
   const [newNotifications, setNewNotifications] = useState(3);
 
-  const backendUrl = "https://nomadic-pen.onrender.com";
   const userId = localStorage.getItem("email");
 
   const fetchNotifications = async () => {
     try {
       const response = await axios.get(
-        `${backendUrl}/notifications?userId=${userId}`
+        `${constants.BACKEND_URL}/notifications?userId=${userId}`
       );
 
       setNotifications(response.data.notifications);
@@ -40,7 +40,9 @@ const NotificationsMenu = () => {
   };
 
   const handleMarkAllAsRead = async () => {
-    await axios.put(`${backendUrl}/notifications/mark-all-read`, { userId });
+    await axios.put(`${constants.BACKEND_URL}/notifications/mark-all-read`, {
+      userId,
+    });
     window.location.reload();
   };
 

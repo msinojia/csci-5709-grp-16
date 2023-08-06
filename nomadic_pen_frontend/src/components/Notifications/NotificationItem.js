@@ -12,6 +12,8 @@ import {
 import { makeStyles } from "@mui/styles";
 import axios from "axios";
 
+import * as constants from "../../constants";
+
 const useStyles = makeStyles((theme) => ({
   unread: {
     fontWeight: 800,
@@ -30,8 +32,7 @@ const NotificationItem = ({ notification }) => {
   const classes = useStyles();
 
   const handleClick = () => {
-    const backendUrl = "https://nomadic-pen.onrender.com";
-    axios.put(`${backendUrl}/notifications/${notification._id}/mark-read`);
+    axios.put(`${constants.BACKEND_URL}/notifications/${notification._id}/mark-read`);
     if (
       notification.kind === notificationKinds.LIKE ||
       notification.kind === notificationKinds.COMMENT ||
