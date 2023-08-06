@@ -24,6 +24,7 @@ import axios from "axios";
 import FileUploader from "./FileUploader";
 import Editor from "./Editor";
 import ScheduleForm from "./ScheduleForm";
+import * as constants from "../../constants";
 
 import styles from "../../styles/FormWindow.module.css";
 
@@ -165,7 +166,7 @@ const PostForm = () => {
         }
 
         const response = await axios.post(
-          "https://nomadic-pen.onrender.com" + endpoint,
+          constants.BACKEND_URL + endpoint,
           postData
         );
 

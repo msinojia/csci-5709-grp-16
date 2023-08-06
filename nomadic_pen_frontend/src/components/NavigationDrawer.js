@@ -27,8 +27,6 @@ const isAuthenticated = () => {
   return localStorage.getItem("bearerToken") !== null;
 };
 
-// ... (other imports)
-
 const NavigationDrawer = ({ isDrawerOpen, toggleDrawer }) => {
   const loggedInItems = [
     {
