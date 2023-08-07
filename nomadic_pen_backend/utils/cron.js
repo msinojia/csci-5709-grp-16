@@ -1,8 +1,10 @@
 /* Author: Meet Sinojia */
 
 const cron = require("node-cron");
+
 const ScheduledPost = require("../models/ScheduledPost");
 const Post = require("../models/Post");
+const notificationController = require("../controllers/notificationController");
 
 const cronJob = cron.schedule("* * * * *", async () => {
   try {
@@ -25,6 +27,9 @@ const cronJob = cron.schedule("* * * * *", async () => {
 
       await post.save();
       await ScheduledPost.findByIdAndRemove(scheduledPost._id);
+
+      // Send notification
+      await notificationController.addScheduledPostNotification(post._id);
     }
 
     if (scheduledPosts.length > 0) {

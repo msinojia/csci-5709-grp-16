@@ -10,16 +10,10 @@ import {
   useTheme,
 } from "@mui/material";
 
-import {
-  Menu as MenuIcon,
-  Call as ContactUsIcon,
-  QuestionMark as FAQsIcon,
-  Login as LoginIcon,
-  Person2 as ProfileIcon,
-  ExitToApp as LogoutIcon,
-} from "@mui/icons-material";
+import { Menu as MenuIcon } from "@mui/icons-material";
 
 import NavigationDrawer from "./NavigationDrawer";
+import NotificationsMenu from "./Notifications/NotificationsMenu";
 
 function landing() {
   if (window.location.pathname !== "/") {
@@ -68,7 +62,12 @@ const Header = () => {
 
   return (
     <AppBar position="static">
-      <Toolbar sx={{ paddingTop: "8px", paddingBottom: "8px" }}>
+      <Toolbar
+        sx={{
+          paddingTop: "8px",
+          paddingBottom: "8px",
+        }}
+      >
         {/* Hamburger Icon - Visible on smaller screens */}
         {isSmallerScreen && (
           <IconButton edge="start" color="inherit" onClick={toggleDrawer}>
@@ -136,6 +135,8 @@ const Header = () => {
                   </Grid> */}
         </Grid>
 
+        {isSmallerScreen && <NotificationsMenu />}
+
         {/* Navigation Options - Visible on larger screens */}
         {!isSmallerScreen && (
           <>
@@ -197,6 +198,7 @@ const Header = () => {
                 >
                   Profile
                 </IconButton>
+                <NotificationsMenu />
                 <IconButton
                   color="inherit"
                   onClick={() => {

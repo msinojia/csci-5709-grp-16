@@ -1,4 +1,4 @@
-/* By Jamini Bhatt */
+/* By Jamini Bhatt and Pakshal Shah */
 import React from 'react';
 import '../../styles/FollowingPage.css';
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 
 const FollowingPage = () => {
   const [posts, setPosts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(""); 
 
   // Function to fetch the posts from the server
   const fetchPosts = async () => {
@@ -34,37 +35,44 @@ const FollowingPage = () => {
   };
 
   return (
-    <><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"></link>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css"></link>
-    <div className="following-page ">
-      <div className='row'>
-        <div className='col-md-12'>
-          <div className='col-md-1' style={{padding: 10}}></div>
-          <div className='col-md-10'>
-            <br/>
-            {/* <h2>Following Page</h2> */}
-            <div className="author-list grow">
-              {posts.map(post => (
-                <div key={post._id} className="author-card">
-                  <img
-                    className="profile-picture"
-                    src={post.featuredImage}
-                    alt={`Profile of ${post.title}`} />
-                  <h3>{post.title}</h3>
-                  <h5> Posted On <b>{formatDate(post.createdAt)}</b></h5>
-                  {/* By <b>{post.authorId}</b> */}
-                  {/* <div className='content' dangerouslySetInnerHTML={{ __html: post.content }} /> */}
-                  <Link to={"/posts/" + post._id}>
-                    More...
-                  </Link>
-                </div>
-              ))}
+    <>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"></link>
+      <div className="following-page ">
+        <div className='row'>
+          <div className='col-md-12'>
+            <div className='col-md-1' style={{ padding: 10 }}></div>
+            <div className='col-md-10'>
+              <br />
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{ width: '100%', padding: '10px', marginBottom: '10px' }} // You can adjust the styling as needed
+              />
+              <div className="author-list grow">
+                {posts
+                  .filter((post) => post.title.toLowerCase().includes(searchTerm.toLowerCase()))
+                  .map(post => (
+                    <div key={post._id} className="author-card">
+                      <img
+                        className="profile-picture"
+                        src={post.featuredImage}
+                        alt={`Profile of ${post.title}`} />
+                      <h3>{post.title}</h3>
+                      <h5> Posted On <b>{formatDate(post.createdAt)}</b></h5>
+                      <Link to={"/posts/" + post._id}>
+                        More...
+                      </Link>
+                    </div>
+                  ))}
+              </div>
             </div>
+            <div className='col-md-1' style={{ padding: 10, textAlign: 'right' }}></div>
           </div>
-          <div className='col-md-1' style={{ padding: 10, textAlign: 'right'}}></div>
         </div>
       </div>
-    </div></>
+    </>
   );
 };
 
