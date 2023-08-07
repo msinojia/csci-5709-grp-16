@@ -1,4 +1,5 @@
-/* By Jamini Bhatt and Pakshal Shah */
+/* By Jamini Bhatt */
+
 import React from 'react';
 import '../../styles/FollowingPage.css';
 import { Link } from "react-router-dom";
@@ -43,13 +44,18 @@ const FollowingPage = () => {
             <div className='col-md-1' style={{ padding: 10 }}></div>
             <div className='col-md-10'>
               <br />
+              
+              {/* Search toolbar by Pakshal Shah */}
               <input
                 type="text"
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                style={{ width: '100%', padding: '10px', marginBottom: '10px' }} // You can adjust the styling as needed
+                className='form-control'
+                style={{ width: '100%', padding: '10px', marginBottom: '10px' }} 
               />
+              {/* Search toolbar by Pakshal Shah */}
+
               <div className="author-list grow">
                 {posts
                   .filter((post) => post.title.toLowerCase().includes(searchTerm.toLowerCase()))
