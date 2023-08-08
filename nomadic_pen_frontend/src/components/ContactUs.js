@@ -188,7 +188,7 @@ const ContactUs = () => {
                                     >
                                         <LocationOn sx={{ mr: 1 }} />
                                         <Typography variant="body2">
-                                            123 Address St, City, Country
+                                            6056 University Ave, Halifax, NS B3H 1W5
                                         </Typography>
                                     </Box>
                                     <Box
@@ -198,7 +198,7 @@ const ContactUs = () => {
                                     >
                                         <Phone sx={{ mr: 1 }} />
                                         <Typography variant="body2">
-                                            +1 234 567 890
+                                            +1 (782) 123-4567
                                         </Typography>
                                     </Box>
                                     <Box
@@ -208,7 +208,7 @@ const ContactUs = () => {
                                     >
                                         <Email sx={{ mr: 1 }} />
                                         <Typography variant="body2">
-                                            contact@example.com
+                                            thenomadicpen@gmail.com
                                         </Typography>
                                     </Box>
                                     <Divider />
