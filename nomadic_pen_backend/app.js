@@ -10,6 +10,7 @@ const travelGuideRoutes = require("./routes/travelGuideRoutes");
 const usersRoutes = require("./routes/users");
 const profileRoutes = require('./routes/profileRoute');
 const notificationRoutes = require("./routes/notificationRoutes");
+const galleryRoutes = require('./routes/galleryRoutes');
 
 const app = express();
 app.use(express.json({ limit: "25mb" }));
@@ -26,6 +27,7 @@ app.use("/user", usersRoutes);
 app.use('/api/subscriptions', require('./routes/subscriptionRoutes'));
 app.use("/profile", profileRoutes);
 app.use("/notifications", notificationRoutes);
+app.use("/gallery", galleryRoutes);
 
 // Start the server
 const port = 8000;

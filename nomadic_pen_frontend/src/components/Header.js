@@ -32,7 +32,9 @@ function faq() {
 function profile() {
   window.location.href = "/profile";
 }
-
+function gallery() {
+    window.location.href = "/gallery";
+}
 function userLogin() {
   window.location.href = "/login";
 }
@@ -181,6 +183,14 @@ const Header = () => {
                   }}
                 >
                   Following
+                </IconButton>
+                <IconButton
+                      color="inherit"
+                      onClick={() => {
+                          gallery();
+                      }}
+                >
+                      Gallery
                 </IconButton>
                 <IconButton
                   color="inherit"
