@@ -55,7 +55,7 @@ const NavigationDrawer = ({ isDrawerOpen, toggleDrawer }) => {
       },
     },
     {
-      primary: "Following",
+      primary: "Discover",
       onClick: () => {
         window.location.href = "/posts/following";
       },

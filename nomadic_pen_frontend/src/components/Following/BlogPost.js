@@ -205,7 +205,7 @@ const BlogPost = () => {
                 <p>Loading...</p> // Render a loading message while the data is being fetched
               )}
               <hr className="hrClass" />
-              <p style={{ textAlign: 'right' }}><Link to={"/posts/following"}>Go to following page</Link></p>
+              <p style={{ textAlign: 'right' }}><Link to={"/posts/following"}>Back to Discover page</Link></p>
             </div>
           </div>
           <div className='col-md-1' style={{ padding: 10, textAlign: 'right' }}></div>

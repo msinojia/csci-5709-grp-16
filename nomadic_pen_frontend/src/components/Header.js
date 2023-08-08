@@ -182,7 +182,7 @@ const Header = () => {
                     window.location.href = "/posts/following";
                   }}
                 >
-                  Following
+                  Discover
                 </IconButton>
                 <IconButton
                       color="inherit"
