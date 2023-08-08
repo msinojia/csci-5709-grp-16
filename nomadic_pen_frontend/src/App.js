@@ -18,6 +18,7 @@ import Reset from "./components/Reset";
 import SubscriptionPage from './components/Subscription/SubscriptionPage';
 import ManageSubscriptionPage from './components/Subscription/ManageSubscriptionPage';
 import PaymentPage from './components/Subscription/PaymentPage';
+import GalleryPage from "./components/Gallery/GalleryPage";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
             <Route path="/subscribe" element={<SubscriptionPage />} />
             <Route path="/manage-subscription" element={<ManageSubscriptionPage />} />
             <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/gallery" element={<GalleryPage />} />
             {/*<Route exact path="/travel-guide/blog" element={<TravelGuideBlog/>} />DO NOT REMOVE */}
           </Routes>
         </BrowserRouter>
