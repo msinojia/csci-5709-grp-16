@@ -24,7 +24,7 @@ const BlogPost = () => {
 
   const fetchPostById = async () => {
     try {
-      const response = await axios.get('https://nomadic-pen.onrender.com/posts/' + id);
+      const response = await axios.get(`${constants.BACKEND_URL}/posts/${id}`);
       setPost(response.data.data);
       fetchCommentsById();
       fetchLikesById();
