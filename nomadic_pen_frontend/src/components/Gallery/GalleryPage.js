@@ -272,22 +272,34 @@ const GalleryPage = () => {
                 </div>
             </Modal>
             <div style={{ marginTop: '2rem' }}>
-                <TextField
-                    select
-                    label="Country Filter"
-                    variant="outlined"
-                    fullWidth
-                    value={selectedCountry}
-                    onChange={(e) => setSelectedCountry(e.target.value)}
+                <Box
+                    sx={{
+                        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                        padding: 2,
+                        borderRadius: 5,
+                        boxShadow: 1,
+                    }}
                 >
-                    <MenuItem value="">All</MenuItem>
-                    <MenuItem value="Canada">Canada</MenuItem>
-                    <MenuItem value="UAE">UAE</MenuItem>
-                    <MenuItem value="India">India</MenuItem>
-                    <MenuItem value="Singapore">Singapore</MenuItem>
-                    <MenuItem value="Czech Republic">Czech Republic</MenuItem>
-                    <MenuItem value="Amsterdam">Netherlands</MenuItem>
-                </TextField>
+                    <TextField
+                        select
+                        label="Filter by Country"
+                        variant="outlined"
+                        fullWidth
+                        value={selectedCountry}
+                        onChange={(e) => setSelectedCountry(e.target.value)}
+                        InputProps={{
+                            style: { color: 'white' },
+                        }}
+                    >
+                        <MenuItem value="">All</MenuItem>
+                        <MenuItem value="Canada">Canada</MenuItem>
+                        <MenuItem value="UAE">UAE</MenuItem>
+                        <MenuItem value="India">India</MenuItem>
+                        <MenuItem value="Singapore">Singapore</MenuItem>
+                        <MenuItem value="Czech Republic">Czech Republic</MenuItem>
+                        <MenuItem value="Amsterdam">Netherlands</MenuItem>
+                    </TextField>
+                </Box>
                 <div style={{ marginTop: '1rem' }}>
                     {tags.map((tag, index) => (
                         <Chip
