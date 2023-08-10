@@ -288,7 +288,7 @@ const GalleryPage = () => {
                         value={selectedCountry}
                         onChange={(e) => setSelectedCountry(e.target.value)}
                         InputProps={{
-                            style: { color: 'white' },
+                            style: { color: '#655DBB' },
                         }}
                     >
                         <MenuItem value="">All</MenuItem>
