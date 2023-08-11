@@ -10,6 +10,7 @@ const travelGuideRoutes = require("./routes/travelGuideRoutes");
 const usersRoutes = require("./routes/users");
 const profileRoutes = require('./routes/profileRoute');
 const notificationRoutes = require("./routes/notificationRoutes");
+const galleryRoutes = require('./routes/galleryRoutes');
 const statisticsRoutes=require("./routes/statistics");
 
 const app = express();
@@ -27,6 +28,7 @@ app.use("/user", usersRoutes);
 app.use('/api/subscriptions', require('./routes/subscriptionRoutes'));
 app.use("/profile", profileRoutes);
 app.use("/notifications", notificationRoutes);
+app.use("/gallery", galleryRoutes);
 app.use("/stats", statisticsRoutes);
 
 // Start the server

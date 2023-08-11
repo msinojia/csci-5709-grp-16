@@ -43,13 +43,19 @@ const NavigationDrawer = ({ isDrawerOpen, toggleDrawer }) => {
       },
     },
     {
+      primary: "Gallery",
+      onClick: () => {
+        window.location.href = "/gallery";
+      },
+    },
+    {
       primary: "Create Post",
       onClick: () => {
         window.location.href = "/posts/create";
       },
     },
     {
-      primary: "Following",
+      primary: "Discover",
       onClick: () => {
         window.location.href = "/posts/following";
       },

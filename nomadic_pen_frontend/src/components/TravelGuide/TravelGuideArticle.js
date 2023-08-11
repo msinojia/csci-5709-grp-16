@@ -43,7 +43,7 @@ const TravelGuideArticle = () => {
     const handleSubmit = () =>{
         const requestBody = {}
         requestBody.message = requestMessage;
-        requestBody.tomail = "zanzibarwalafarida@gmail.com";
+        requestBody.tomail = "zanzibarwalataha786@gmail.com";
         emailjs.send("service_smozw1e", "template_e27fup9", requestBody, "yn_-CSiHl32axqQL1")
             .then(function(response) {
                 console.log('SUCCESS!', response.status, response.text);

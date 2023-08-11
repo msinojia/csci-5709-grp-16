@@ -18,6 +18,7 @@ const ProfilePage = () => {
     const [dob, setDob] = useState('');
     const [contact, setContact] = useState('');
     const [enrollmentDate, setEnrollmentDate] = useState('');
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         // Fetch the user's profile picture
@@ -27,7 +28,7 @@ const ProfilePage = () => {
         axios.get(`https://nomadic-pen.onrender.com/profile/getUserProfileDetails/${userEmail}`)
             .then((response) => {
                 console.log('response:',response);
-
+                setLoading(false);
                 const { profilePic, firstName, lastName, email, penName, totalPosts, dob, contact, enrollmentDate} = response.data;
                 setProfilePicture(profilePic);
                 setFirstName(firstName);
@@ -82,13 +83,18 @@ const ProfilePage = () => {
             alert('Error uploading profile picture.');
         }
     };
-    /* Mock data*/
+    /* This data will be populated once following and follower data is available from other modules*/
     const followers = 0;
     const following = 0;
 
 
     return (
         <div style={{ backgroundColor: 'white'}}>
+            {loading ? (
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                    <MUI.CircularProgress />
+                </div>
+            ) : (
             <Box name="mainBox" sx={{display: 'flex',marginTop: '8px' }}>
                 <Grid container spacing={2} sx={{ gap: 1 }}>
                     <Grid name="grid1" item xs={12} sm={2} md={2} style={{ display: 'inline-block', justifyContent: 'center', maxWidth: '100%', width: '350px' }}>
@@ -135,6 +141,7 @@ const ProfilePage = () => {
                     </Grid>
                 </Grid>
             </Box>
+            )}
         </div>
     );
 };
