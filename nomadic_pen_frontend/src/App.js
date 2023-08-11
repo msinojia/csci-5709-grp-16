@@ -19,6 +19,7 @@ import SubscriptionPage from './components/Subscription/SubscriptionPage';
 import ManageSubscriptionPage from './components/Subscription/ManageSubscriptionPage';
 import PaymentPage from './components/Subscription/PaymentPage';
 import GalleryPage from "./components/Gallery/GalleryPage";
+import Statistics from "./components/Charts/Statistics";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             <Route path="/payment" element={<PaymentPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
             {/*<Route exact path="/travel-guide/blog" element={<TravelGuideBlog/>} />DO NOT REMOVE */}
+            <Route path="/Stats" element={<Statistics></Statistics>} />
           </Routes>
         </BrowserRouter>
       </div>
