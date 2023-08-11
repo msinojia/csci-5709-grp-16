@@ -209,7 +209,7 @@ const Header = () => {
                   window.location.href = "/stats";
                 }}
               >
-                Admin Dashboard
+                Admin
               </IconButton>
             )}
                 <IconButton

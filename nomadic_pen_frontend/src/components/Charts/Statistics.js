@@ -15,7 +15,7 @@ const Statistics = () => {
   const [likesStatistics, setLikesStatistics] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/stats/')
+    axios.get('https://nomadic-pen.onrender.com/stats/')
       .then((response) => {
         console.log('response:', response);
 
