@@ -4,7 +4,11 @@ import {chart as chartjs} from 'chart.js/auto';
 
 function Barcharts({UserBarGraphs, chartId})
 {
-    return (<div>
+    const options = {
+        responsive: false,
+        maintainAspectRatio: false
+      };
+    return (<div className='barCharts'>
         <Bar data={UserBarGraphs} id={chartId}/>
     </div>)
 }

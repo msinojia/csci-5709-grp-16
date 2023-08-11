@@ -48,10 +48,12 @@ const Header = () => {
   };
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userEmail, setUserEmail]=useState('');
 
   useEffect(() => {
     const bearerToken = localStorage.getItem("bearerToken");
     setIsAuthenticated(!!bearerToken);
+    setUserEmail(localStorage.getItem('email'));
   }, []);
 
   const handleLogout = () => {
@@ -190,6 +192,16 @@ const Header = () => {
                 >
                   Create Post
                 </IconButton>
+                {isAuthenticated && userEmail === "jasmeetsingh23596@gmail.com" && (
+              <IconButton
+                color="inherit"
+                onClick={() => {
+                  window.location.href = "/stats";
+                }}
+              >
+                Admin Dashboard
+              </IconButton>
+            )}
                 <IconButton
                   color="inherit"
                   onClick={() => {
