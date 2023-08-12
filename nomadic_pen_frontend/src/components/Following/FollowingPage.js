@@ -5,16 +5,19 @@ import '../../styles/FollowingPage.css';
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import {Backdrop, CircularProgress, Typography} from "@mui/material";
 
 
 const FollowingPage = () => {
   const [posts, setPosts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
 
   // Function to fetch the posts from the server
   const fetchPosts = async () => {
     try {
       const response = await axios.get('https://nomadic-pen.onrender.com/posts');
+      setLoading(false);
       setPosts(response.data.data); 
     } catch (error) {
       console.error('Error fetching posts:', error);
@@ -38,6 +41,12 @@ const FollowingPage = () => {
   return (
     <>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"></link>
+      <Backdrop open={loading} style={{ zIndex: 2, color: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <CircularProgress color="inherit" style={{ marginBottom: '8px' }} />
+        <Typography sx={{ marginTop: '8px', color: '#fff', fontWeight: 'bold' }}>
+          Please wait while we fetch the blog posts!
+        </Typography>
+      </Backdrop>
       <div className="following-page ">
         <div className='row'>
           <div className='col-md-12'>
