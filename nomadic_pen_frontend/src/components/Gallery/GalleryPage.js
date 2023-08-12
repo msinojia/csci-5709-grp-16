@@ -11,6 +11,8 @@ import {
     MenuItem,
     Modal,
     Alert,
+    Backdrop,
+    CircularProgress,
     CardContent,
     Box, CardActionArea, CardMedia,
 } from '@mui/material';
@@ -58,11 +60,13 @@ const GalleryPage = () => {
     const [images, setImages] = useState([]); // State to store fetched images
     const [selectedCountry, setSelectedCountry] = useState('');
     const [selectedTags, setSelectedTags] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const fetchImages = async () => {
         try {
             const response = await axios.get('https://nomadic-pen.onrender.com/gallery/getImages');
             console.log('getImages data:',response.data);
+            setLoading(false);
             setImages(response.data);
         } catch (error) {
             showAlert('Error', 'Error in fetching images!');
@@ -158,6 +162,12 @@ const GalleryPage = () => {
                     Upload your travel photos
                 </Button>
             </div>
+            <Backdrop open={loading} style={{ zIndex: 2, color: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <CircularProgress color="inherit" style={{ marginBottom: '8px' }} />
+                <Typography sx={{ marginTop: '8px', color: '#fff', fontWeight: 'bold' }}>
+                    Please wait while we fetch uploaded photos!
+                </Typography>
+            </Backdrop>
             {/* Upload Modal */}
             <Modal
                 open={isUploadModalOpen}
